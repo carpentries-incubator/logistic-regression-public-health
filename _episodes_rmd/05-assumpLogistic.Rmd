@@ -1,0 +1,18 @@
+---
+source: Rmd
+title: "Assessing logistic regression fit and assumptions"
+objectives:
+keypoints:
+questions:
+teaching: 10
+execises: 10
+---
+
+```{r, include=FALSE}
+source("../bin/chunk-options.R")
+source("../bin/obtain_data.R")
+knitr_fig_path("03-")
+```
+
+
+
