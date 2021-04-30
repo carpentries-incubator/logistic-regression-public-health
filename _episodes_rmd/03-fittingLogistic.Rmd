@@ -1,0 +1,23 @@
+---
+source: Rmd
+title: "Logistic regression with one continuous explanatory variable"
+objectives:
+  - "Use the `ggplot2` package to explore the relationship between a binary response variable and a continuous explanatory variable."
+  - "Use the `glm()` function to fit a logistic regression model with one continuous explanatory variable."
+  - "Use the `summ()` function from the `jtools` package to interpret the model output in terms of the log odds."
+  - "Use the `summ()` function from the `jtools` package to interpret the model output in terms of the odds ratio."
+  - "Use the `jtools` and `ggplot2` packages to visualise the resulting model."
+keypoints:
+questions:
+teaching: 10
+execises: 10
+---
+
+```{r, include=FALSE}
+source("../bin/chunk-options.R")
+source("../bin/obtain_data.R")
+knitr_fig_path("03-")
+```
+
+
+
