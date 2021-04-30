@@ -5,7 +5,9 @@ source: Rmd
 title: "An introduction to binary response variables"
 objectives:
   - "Calculate the probabilities of success and failure given binary data."
+  - "Interpret the expectation of a binary variable."
   - "Calculate and interpret the odds of success given binary data."
+  - "Calculate and interpret the log odds of success given binary data."
 keypoints:
 questions:
 teaching: 10
