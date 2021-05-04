@@ -17,7 +17,55 @@ execises: 10
 source("../bin/chunk-options.R")
 source("../bin/obtain_data.R")
 knitr_fig_path("03-")
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(jtools)
 ```
 
 
+```{r explore SmokeNow_Age}
+dat %>%
+  drop_na(SmokeNow) %>%
+  ggplot(aes(x = SmokeNow, y = Age)) +
+  geom_violin() 
+```
+
+```{r explore PhysActive_FEV1}
+dat %>%
+  drop_na(PhysActive) %>%
+  ggplot(aes(x = FEV1, y = PhysActive)) +
+  geom_violin() 
+```
+
+
+```{r fit SmokeNow_Age}
+SmokeNow_Age <- dat %>%
+  glm(formula = SmokeNow ~ Age, family = "binomial")
+
+summ(SmokeNow_Age)
+
+summ(SmokeNow_Age, exp = TRUE)
+```
+
+```{r fit PhysActive_FEV1}
+PhysActive_FEV1 <- dat %>%
+  drop_na(PhysActive) %>%
+  glm(formula = PhysActive ~ FEV1, family = "binomial")
+
+summ(PhysActive_FEV1)
+
+summ(PhysActive_FEV1, exp = TRUE)
+```
+
+```{r plot SmokeNow_Age}
+effect_plot(SmokeNow_Age, pred = Age, plot.points = TRUE,
+            point.alpha = 0.1, jitter = c(0.1, 0.05))
+```
+
+```{r plot PhysActive_FEV1}
+effect_plot(PhysActive_FEV1, pred = FEV1, plot.points = TRUE,
+            point.alpha = 0.1, jitter = c(0.1, 0.05))
+```
 
