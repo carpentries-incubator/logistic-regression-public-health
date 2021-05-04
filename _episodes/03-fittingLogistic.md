@@ -19,3 +19,187 @@ execises: 10
 
 
 
+~~~
+dat %>%
+  drop_na(SmokeNow) %>%
+  ggplot(aes(x = SmokeNow, y = Age)) +
+  geom_violin() 
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-03-explore SmokeNow_Age-1.png" title="plot of chunk explore SmokeNow_Age" alt="plot of chunk explore SmokeNow_Age" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+dat %>%
+  drop_na(PhysActive) %>%
+  ggplot(aes(x = FEV1, y = PhysActive)) +
+  geom_violin() 
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning: Removed 1541 rows containing non-finite values (stat_ydensity).
+~~~
+{: .warning}
+
+<img src="../fig/rmd-03-explore PhysActive_FEV1-1.png" title="plot of chunk explore PhysActive_FEV1" alt="plot of chunk explore PhysActive_FEV1" width="612" style="display: block; margin: auto;" />
+
+
+
+~~~
+SmokeNow_Age <- dat %>%
+  glm(formula = SmokeNow ~ Age, family = "binomial")
+
+summ(SmokeNow_Age)
+~~~
+{: .language-r}
+
+
+
+~~~
+MODEL INFO:
+Observations: 3007 (6993 missing obs. deleted)
+Dependent Variable: SmokeNow
+Type: Generalized linear model
+  Family: binomial 
+  Link function: logit 
+
+MODEL FIT:
+χ²(1) = 574.29, p = 0.00
+Pseudo-R² (Cragg-Uhler) = 0.23
+Pseudo-R² (McFadden) = 0.14
+AIC = 3575.26, BIC = 3587.28 
+
+Standard errors: MLE
+------------------------------------------------
+                     Est.   S.E.   z val.      p
+----------------- ------- ------ -------- ------
+(Intercept)          2.61   0.13    19.68   0.00
+Age                 -0.05   0.00   -21.77   0.00
+------------------------------------------------
+~~~
+{: .output}
+
+
+
+~~~
+summ(SmokeNow_Age, exp = TRUE)
+~~~
+{: .language-r}
+
+
+
+~~~
+MODEL INFO:
+Observations: 3007 (6993 missing obs. deleted)
+Dependent Variable: SmokeNow
+Type: Generalized linear model
+  Family: binomial 
+  Link function: logit 
+
+MODEL FIT:
+χ²(1) = 574.29, p = 0.00
+Pseudo-R² (Cragg-Uhler) = 0.23
+Pseudo-R² (McFadden) = 0.14
+AIC = 3575.26, BIC = 3587.28 
+
+Standard errors: MLE
+-------------------------------------------------------------
+                    exp(Est.)    2.5%   97.5%   z val.      p
+----------------- ----------- ------- ------- -------- ------
+(Intercept)             13.55   10.45   17.57    19.68   0.00
+Age                      0.95    0.94    0.95   -21.77   0.00
+-------------------------------------------------------------
+~~~
+{: .output}
+
+
+~~~
+PhysActive_FEV1 <- dat %>%
+  drop_na(PhysActive) %>%
+  glm(formula = PhysActive ~ FEV1, family = "binomial")
+
+summ(PhysActive_FEV1)
+~~~
+{: .language-r}
+
+
+
+~~~
+MODEL INFO:
+Observations: 5767 (1541 missing obs. deleted)
+Dependent Variable: PhysActive
+Type: Generalized linear model
+  Family: binomial 
+  Link function: logit 
+
+MODEL FIT:
+χ²(1) = 235.34, p = 0.00
+Pseudo-R² (Cragg-Uhler) = 0.05
+Pseudo-R² (McFadden) = 0.03
+AIC = 7660.04, BIC = 7673.36 
+
+Standard errors: MLE
+------------------------------------------------
+                     Est.   S.E.   z val.      p
+----------------- ------- ------ -------- ------
+(Intercept)         -1.19   0.10   -11.78   0.00
+FEV1                 0.00   0.00    14.87   0.00
+------------------------------------------------
+~~~
+{: .output}
+
+
+
+~~~
+summ(PhysActive_FEV1, exp = TRUE)
+~~~
+{: .language-r}
+
+
+
+~~~
+MODEL INFO:
+Observations: 5767 (1541 missing obs. deleted)
+Dependent Variable: PhysActive
+Type: Generalized linear model
+  Family: binomial 
+  Link function: logit 
+
+MODEL FIT:
+χ²(1) = 235.34, p = 0.00
+Pseudo-R² (Cragg-Uhler) = 0.05
+Pseudo-R² (McFadden) = 0.03
+AIC = 7660.04, BIC = 7673.36 
+
+Standard errors: MLE
+------------------------------------------------------------
+                    exp(Est.)   2.5%   97.5%   z val.      p
+----------------- ----------- ------ ------- -------- ------
+(Intercept)              0.31   0.25    0.37   -11.78   0.00
+FEV1                     1.00   1.00    1.00    14.87   0.00
+------------------------------------------------------------
+~~~
+{: .output}
+
+
+~~~
+effect_plot(SmokeNow_Age, pred = Age, plot.points = TRUE,
+            point.alpha = 0.1, jitter = c(0.1, 0.05))
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-03-plot SmokeNow_Age-1.png" title="plot of chunk plot SmokeNow_Age" alt="plot of chunk plot SmokeNow_Age" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+effect_plot(PhysActive_FEV1, pred = FEV1, plot.points = TRUE,
+            point.alpha = 0.1, jitter = c(0.1, 0.05))
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-03-plot PhysActive_FEV1-1.png" title="plot of chunk plot PhysActive_FEV1" alt="plot of chunk plot PhysActive_FEV1" width="612" style="display: block; margin: auto;" />
+
