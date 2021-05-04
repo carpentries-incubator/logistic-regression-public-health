@@ -6,7 +6,8 @@ title: "An introduction to logistic regression"
 objectives:
   - "Identify questions that can be addressed with a logistic regression model."
   - "Describe the components that are involved in logistic regression."
-  - "Formulate the model equation in terms of the log odds and in terms of the probability of success."
+  - "Formulate the model equation in terms of the log odds."
+  - "Formulate the model equation in terms of the probability of success."
 keypoints:
 questions:
 teaching: 10
@@ -56,19 +57,19 @@ participants without diabetes?
 The logistic regression model can be described by the following equation:
 
 $$
-\text{log}\left(\frac{E(y)}{1-E(y)}\right) = \beta_0 + \beta_1 \times x_1
-$$.
+\text{log}\left(\frac{E(y)}{1-E(y)}\right) = \beta_0 + \beta_1 \times x_1.
+$$
 
 The right-hand side of the equation has the same form as what we encountered in the simple linear regression lesson. So we will first interpret the left-hand side of the equation. The outcome variable is denoted by $y$. Logistic regression models the *log* of the *ratio* of the *expectation* of $y$ and $1$ minus the *expectation* of $y$. This log ratio can be denoted by $\text{logit()}$, giving us the following equation:
 
 $$
-\text{logit}(E(y)) = \beta_0 + \beta_1 \times x_1
+\text{logit}(E(y)) = \beta_0 + \beta_1 \times x_1.
 $$
 
 As we learned in the previous episode, the expectation of $y$ is another way of referring to the *mean* of $y$. We also learned that $E(y) = \text{Pr}(y=1)$ and that $1- \text{Pr}(y=1) = \text{Pr}(y=0)$. Therefore, the left-hand side of our equation can be denoted by:
 
 $$
-\text{logit}(E(y)) = \text{log}\left(\frac{E(y)}{1-E(y)}\right) = \text{log}\left(\frac{\text{Pr}(y=1)}{1-\text{Pr}(y=1)}\right) = \text{log}\left(\frac{\text{Pr}(y=1)}{\text{Pr}(y=0)}\right) 
+\text{logit}(E(y)) = \text{log}\left(\frac{E(y)}{1-E(y)}\right) = \text{log}\left(\frac{\text{Pr}(y=1)}{1-\text{Pr}(y=1)}\right) = \text{log}\left(\frac{\text{Pr}(y=1)}{\text{Pr}(y=0)}\right). 
 $$
 
 This leads us to interpreting $\text{logit}(E(y))$ as the *log odds* of $y=1$.
@@ -76,7 +77,7 @@ This leads us to interpreting $\text{logit}(E(y))$ as the *log odds* of $y=1$.
 The expectation of $y$ is a function of $\beta_0$ and $\beta_1 \times x_1$. The intercept is denoted by $\beta_0$ - this is the log odds when the explanatory variable, $x_1$, equals 0. The effect of our explanatory variable is denoted by $\beta_1$ - for every one-unit increase in $x_1$, the log odds changes by $\beta_1$.
 
 
-Before fitting the model, we have access to $y$ and $x_1$ values for each observation in our data. For example, we may want to model the relationship between diabetes and BMI. $y$ would represent diabetes ($y=1$ if a participant has diabetes and $y=0$ otherwise). $x_1$ would represent BMI. After we fit the model, R will return to us values of $\beta_0$ and $beta_1$ - these are *estimated* using our data. 
+Before fitting the model, we have access to $y$ and $x_1$ values for each observation in our data. For example, we may want to model the relationship between diabetes and BMI. $y$ would represent diabetes ($y=1$ if a participant has diabetes and $y=0$ otherwise). $x_1$ would represent BMI. After we fit the model, R will return to us values of $\beta_0$ and $\beta_1$ - these are *estimated* using our data. 
 
 
 
@@ -94,7 +95,7 @@ Before fitting the model, we have access to $y$ and $x_1$ values for each observ
 > B) The expected change in the log odds of having diabetes
 > with a one-unit increase in BMI.     
 > C) The expected log odds of
-> having diabetes when the BMI equals 0.
+> having diabetes when the BMI equals 0.  
 > D) A specific value of BMI.  
 >  
 > > ## Solution
