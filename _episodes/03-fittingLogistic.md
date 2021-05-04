@@ -18,7 +18,6 @@ execises: 10
 
 
 
-
 ~~~
 dat %>%
   drop_na(SmokeNow) %>%
@@ -29,23 +28,32 @@ dat %>%
 
 <img src="../fig/rmd-03-explore SmokeNow_Age-1.png" title="plot of chunk explore SmokeNow_Age" alt="plot of chunk explore SmokeNow_Age" width="612" style="display: block; margin: auto;" />
 
-
-~~~
-dat %>%
-  drop_na(PhysActive) %>%
-  ggplot(aes(x = FEV1, y = PhysActive)) +
-  geom_violin() 
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning: Removed 1541 rows containing non-finite values (stat_ydensity).
-~~~
-{: .warning}
-
-<img src="../fig/rmd-03-explore PhysActive_FEV1-1.png" title="plot of chunk explore PhysActive_FEV1" alt="plot of chunk explore PhysActive_FEV1" width="612" style="display: block; margin: auto;" />
+> ## Exercise  
+> You have been asked to model the relationship between 
+> physical activity (`PhysActive`)
+> and `FEV1` in the NHANES data. Use the ggplot2
+> package to create an exploratory plot, ensuring that:
+> 1. NAs are discarded from the `PhysActive` variable.  
+> 2. Physical activity (`PhysActive`) on the y-axis and FEV1 
+> (`FEV1`) on the x-axis.
+> 3. This data is shown as a violin plot.  
+> 4. The y-axis is labelled as "Physically active".
+>
+> > ## Solution
+> > 
+> > 
+> > ~~~
+> > dat %>%
+> >   drop_na(PhysActive) %>%
+> >   ggplot(aes(x = FEV1, y = PhysActive)) +
+> >   geom_violin() +
+> >   ylab("Physically active")
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-03-explore PhysActive_FEV1-1.png" title="plot of chunk explore PhysActive_FEV1" alt="plot of chunk explore PhysActive_FEV1" width="612" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
 
 
 
@@ -116,74 +124,106 @@ Age                      0.95    0.94    0.95   -21.77   0.00
 ~~~
 {: .output}
 
-
-~~~
-PhysActive_FEV1 <- dat %>%
-  drop_na(PhysActive) %>%
-  glm(formula = PhysActive ~ FEV1, family = "binomial")
-
-summ(PhysActive_FEV1)
-~~~
-{: .language-r}
-
-
-
-~~~
-MODEL INFO:
-Observations: 5767 (1541 missing obs. deleted)
-Dependent Variable: PhysActive
-Type: Generalized linear model
-  Family: binomial 
-  Link function: logit 
-
-MODEL FIT:
-χ²(1) = 235.34, p = 0.00
-Pseudo-R² (Cragg-Uhler) = 0.05
-Pseudo-R² (McFadden) = 0.03
-AIC = 7660.04, BIC = 7673.36 
-
-Standard errors: MLE
-------------------------------------------------
-                     Est.   S.E.   z val.      p
------------------ ------- ------ -------- ------
-(Intercept)         -1.19   0.10   -11.78   0.00
-FEV1                 0.00   0.00    14.87   0.00
-------------------------------------------------
-~~~
-{: .output}
-
-
-
-~~~
-summ(PhysActive_FEV1, exp = TRUE)
-~~~
-{: .language-r}
-
-
-
-~~~
-MODEL INFO:
-Observations: 5767 (1541 missing obs. deleted)
-Dependent Variable: PhysActive
-Type: Generalized linear model
-  Family: binomial 
-  Link function: logit 
-
-MODEL FIT:
-χ²(1) = 235.34, p = 0.00
-Pseudo-R² (Cragg-Uhler) = 0.05
-Pseudo-R² (McFadden) = 0.03
-AIC = 7660.04, BIC = 7673.36 
-
-Standard errors: MLE
-------------------------------------------------------------
-                    exp(Est.)   2.5%   97.5%   z val.      p
------------------ ----------- ------ ------- -------- ------
-(Intercept)              0.31   0.25    0.37   -11.78   0.00
-FEV1                     1.00   1.00    1.00    14.87   0.00
-------------------------------------------------------------
-~~~
-{: .output}
+> ## Exercise  
+> 1. Using the `glm()` command, fit a logistic regression model
+> of physical activity (`PhysActive`) as a function of FEV1 
+> (`FEV1`).
+> Name this `glm` object `PhysActive_FEV1`.  
+> 2. Using the `summ` function from the `jtools` package, answer the following questions:
+>   
+> A) What log odds of physical activity does the model predict, 
+> on average, for an individual with an `FEV1` of 0?  
+> B) By how much is the log odds of physical activity expected 
+> to differ, on average, for a one-unit difference in `FEV1`?  
+> C) Given these values and the names of the response and explanatory
+> variables, how can the general equation $\text{logit}(E(y)) = \beta_0 + \beta_1 \times x_1$ be adapted to represent the model?  
+> D) By how much is $\text{Pr}(\text{PhysActive} = \text{Yes})$ expected to be multiplied for a one-unit increase in `FEV1?`
+>
+> > ## Solution
+> > 
+> > To answer questions A-C, we look at the default
+> > output from `summ()`:
+> > 
+> > 
+> > ~~~
+> > PhysActive_FEV1 <- dat %>%
+> >   drop_na(PhysActive) %>%
+> >   glm(formula = PhysActive ~ FEV1, family = "binomial")
+> > 
+> > summ(PhysActive_FEV1, digits = 5)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > MODEL INFO:
+> > Observations: 5767 (1541 missing obs. deleted)
+> > Dependent Variable: PhysActive
+> > Type: Generalized linear model
+> >   Family: binomial 
+> >   Link function: logit 
+> > 
+> > MODEL FIT:
+> > χ²(1) = 235.33619, p = 0.00000
+> > Pseudo-R² (Cragg-Uhler) = 0.05364
+> > Pseudo-R² (McFadden) = 0.02982
+> > AIC = 7660.03782, BIC = 7673.35764 
+> > 
+> > Standard errors: MLE
+> > ------------------------------------------------------------
+> >                         Est.      S.E.      z val.         p
+> > ----------------- ---------- --------- ----------- ---------
+> > (Intercept)         -1.18602   0.10068   -11.78013   0.00000
+> > FEV1                 0.00046   0.00003    14.86836   0.00000
+> > ------------------------------------------------------------
+> > ~~~
+> > {: .output}
+> > 
+> > A) -1.1860     
+> > B) The log odds of physical activity is expected 
+> > to be 0.0005 for every unit increase in `FEV1`.      
+> > C) $\text{logit}(E(\text{PhysActive})) = -1.1860 + 0.00005 \times \text{FEV1}$.  
+> > 
+> > To answer question D, we add `exp = TRUE` to the `summ()`
+> > command:
+> > 
+> > 
+> > ~~~
+> > summ(PhysActive_FEV1, digits = 5, exp = TRUE)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > MODEL INFO:
+> > Observations: 5767 (1541 missing obs. deleted)
+> > Dependent Variable: PhysActive
+> > Type: Generalized linear model
+> >   Family: binomial 
+> >   Link function: logit 
+> > 
+> > MODEL FIT:
+> > χ²(1) = 235.33619, p = 0.00000
+> > Pseudo-R² (Cragg-Uhler) = 0.05364
+> > Pseudo-R² (McFadden) = 0.02982
+> > AIC = 7660.03782, BIC = 7673.35764 
+> > 
+> > Standard errors: MLE
+> > -----------------------------------------------------------------------
+> >                     exp(Est.)      2.5%     97.5%      z val.         p
+> > ----------------- ----------- --------- --------- ----------- ---------
+> > (Intercept)           0.30543   0.25074   0.37206   -11.78013   0.00000
+> > FEV1                  1.00046   1.00040   1.00052    14.86836   0.00000
+> > -----------------------------------------------------------------------
+> > ~~~
+> > {: .output}
+> > 
+> > D) The multiplicative change in the probability of
+> > physical activity being "Yes" is estimated to be 1.00046. 
+> {: .solution}
+{: .challenge}
 
 
 ~~~
@@ -194,12 +234,22 @@ effect_plot(SmokeNow_Age, pred = Age, plot.points = TRUE,
 
 <img src="../fig/rmd-03-plot SmokeNow_Age-1.png" title="plot of chunk plot SmokeNow_Age" alt="plot of chunk plot SmokeNow_Age" width="612" style="display: block; margin: auto;" />
 
+> ## Exercise  
+> To help others interpret the `PhysActive_FEV1` model, produce a figure. 
+> Make this figure using the `jtools` package, ensuring that 
+> the y-axis is labelled as "Pr(PhysActive = Yes)".
+>
+> > ## Solution
+> > 
+> > ~~~
+> > effect_plot(PhysActive_FEV1, pred = FEV1, plot.points = TRUE,
+> >             point.alpha = 0.1, jitter = c(0.1, 0.05)) +
+> >   ylab("Pr(PhysActive = Yes)")
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-03-plot PhysActive_FEV1-1.png" title="plot of chunk plot PhysActive_FEV1" alt="plot of chunk plot PhysActive_FEV1" width="612" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
 
-~~~
-effect_plot(PhysActive_FEV1, pred = FEV1, plot.points = TRUE,
-            point.alpha = 0.1, jitter = c(0.1, 0.05))
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-03-plot PhysActive_FEV1-1.png" title="plot of chunk plot PhysActive_FEV1" alt="plot of chunk plot PhysActive_FEV1" width="612" style="display: block; margin: auto;" />
 

@@ -24,7 +24,6 @@ library(ggplot2)
 library(jtools)
 ```
 
-
 ```{r explore SmokeNow_Age}
 dat %>%
   drop_na(SmokeNow) %>%
@@ -32,12 +31,28 @@ dat %>%
   geom_violin() 
 ```
 
-```{r explore PhysActive_FEV1}
-dat %>%
-  drop_na(PhysActive) %>%
-  ggplot(aes(x = FEV1, y = PhysActive)) +
-  geom_violin() 
-```
+> ## Exercise  
+> You have been asked to model the relationship between 
+> physical activity (`PhysActive`)
+> and `FEV1` in the NHANES data. Use the ggplot2
+> package to create an exploratory plot, ensuring that:
+> 1. NAs are discarded from the `PhysActive` variable.  
+> 2. Physical activity (`PhysActive`) on the y-axis and FEV1 
+> (`FEV1`) on the x-axis.
+> 3. This data is shown as a violin plot.  
+> 4. The y-axis is labelled as "Physically active".
+>
+> > ## Solution
+> > 
+> > ```{r explore PhysActive_FEV1, warning = FALSE}
+> > dat %>%
+> >   drop_na(PhysActive) %>%
+> >   ggplot(aes(x = FEV1, y = PhysActive)) +
+> >   geom_violin() +
+> >   ylab("Physically active")
+> > ```
+> {: .solution}
+{: .challenge}
 
 
 ```{r fit SmokeNow_Age}
@@ -49,23 +64,68 @@ summ(SmokeNow_Age)
 summ(SmokeNow_Age, exp = TRUE)
 ```
 
-```{r fit PhysActive_FEV1}
-PhysActive_FEV1 <- dat %>%
-  drop_na(PhysActive) %>%
-  glm(formula = PhysActive ~ FEV1, family = "binomial")
-
-summ(PhysActive_FEV1)
-
-summ(PhysActive_FEV1, exp = TRUE)
-```
+> ## Exercise  
+> 1. Using the `glm()` command, fit a logistic regression model
+> of physical activity (`PhysActive`) as a function of FEV1 
+> (`FEV1`).
+> Name this `glm` object `PhysActive_FEV1`.  
+> 2. Using the `summ` function from the `jtools` package, answer the following questions:
+>   
+> A) What log odds of physical activity does the model predict, 
+> on average, for an individual with an `FEV1` of 0?  
+> B) By how much is the log odds of physical activity expected 
+> to differ, on average, for a one-unit difference in `FEV1`?  
+> C) Given these values and the names of the response and explanatory
+> variables, how can the general equation $\text{logit}(E(y)) = \beta_0 + \beta_1 \times x_1$ be adapted to represent the model?  
+> D) By how much is $\text{Pr}(\text{PhysActive} = \text{Yes})$ expected to be multiplied for a one-unit increase in `FEV1?`
+>
+> > ## Solution
+> > 
+> > To answer questions A-C, we look at the default
+> > output from `summ()`:
+> > 
+> > ```{r fit PhysActive_FEV1 - part 1}
+> > PhysActive_FEV1 <- dat %>%
+> >   drop_na(PhysActive) %>%
+> >   glm(formula = PhysActive ~ FEV1, family = "binomial")
+> > 
+> > summ(PhysActive_FEV1, digits = 5)
+> > ```
+> > 
+> > A) -1.1860     
+> > B) The log odds of physical activity is expected 
+> > to be 0.0005 for every unit increase in `FEV1`.      
+> > C) $\text{logit}(E(\text{PhysActive})) = -1.1860 + 0.00005 \times \text{FEV1}$.  
+> > 
+> > To answer question D, we add `exp = TRUE` to the `summ()`
+> > command:
+> > 
+> > ```{r fit PhysActive_FEV1 - part 2}
+> > summ(PhysActive_FEV1, digits = 5, exp = TRUE)
+> > ```
+> > 
+> > D) The multiplicative change in the probability of
+> > physical activity being "Yes" is estimated to be 1.00046. 
+> {: .solution}
+{: .challenge}
 
 ```{r plot SmokeNow_Age}
 effect_plot(SmokeNow_Age, pred = Age, plot.points = TRUE,
             point.alpha = 0.1, jitter = c(0.1, 0.05))
 ```
 
-```{r plot PhysActive_FEV1}
-effect_plot(PhysActive_FEV1, pred = FEV1, plot.points = TRUE,
-            point.alpha = 0.1, jitter = c(0.1, 0.05))
-```
+> ## Exercise  
+> To help others interpret the `PhysActive_FEV1` model, produce a figure. 
+> Make this figure using the `jtools` package, ensuring that 
+> the y-axis is labelled as "Pr(PhysActive = Yes)".
+>
+> > ## Solution
+> > ```{r plot PhysActive_FEV1}
+> > effect_plot(PhysActive_FEV1, pred = FEV1, plot.points = TRUE,
+> >             point.alpha = 0.1, jitter = c(0.1, 0.05)) +
+> >   ylab("Pr(PhysActive = Yes)")
+> > ```
+> {: .solution}
+{: .challenge}
+
 
