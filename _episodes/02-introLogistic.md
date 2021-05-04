@@ -106,10 +106,20 @@ Before fitting the model, we have access to $y$ and $x_1$ values for each observ
 > {: .solution}
 {: .challenge}
 
+Alternatively, the logistic regression model can be expressed in terms of probabilities of success. This formula is obtained by using the *inverse* function of $\text{logit}()$, denoted by $\text{logit}^{-1}()$. In general terms, an inverse function "reverses" the original function, returning the input value. This means that $\text{logit}^{-1}(\text{logit}(E(y))) = E(y)$. Taking the inverse logit on both sides of the logistic regression equation introduced above, we obtain:
+
+$$
+\begin{align}
+\text{logit}^{-1}(\text{logit}(E(y))) & = \text{logit}^{-1}(\beta_0 + \beta_1 \times x_1) \\
+E(y) & = \text{logit}^{-1}(\beta_0 + \beta_1 \times x_1).
+\end{align}
+$$
+
+The advantage of this formulation is that our output is in terms of probabilities of success. We will encounter this formulation when plotting the results of our models. 
 
 > ## Exercise  
 > We are asked to study the association between age and smoking status. We are given the following equation of a logistic regression model to use:  
-> $$E(y) = \text{logit}^{-1}(\beta_0 + \beta_1 \times x_1)$$.     
+> $$E(y) = \text{logit}^{-1}(\beta_0 + \beta_1 \times x_1).$$     
 > Match the following components of this logistic regression model to their descriptions:  
 > 1. $E(y)$  
 > 2. ${\beta}_0$  
@@ -117,19 +127,20 @@ Before fitting the model, we have access to $y$ and $x_1$ values for each observ
 > 4. ${\beta}_1$  
 > 5. $\text{logit}^{-1}()$
 >  
-> A) The log odds of having diabetes, for 
-> a particular value of BMI.   
-> B) The expected change in the log odds of having diabetes
-> with a one-unit increase in BMI.     
-> C) The expected log odds of
-> having diabetes when the BMI equals 0.  
-> D) A specific value of BMI.  
+> A) A specific value of age.  
+> B) The expected probability of being a smoker for a particular
+> value of age.  
+> C) The inverse logit function.  
+> D) The linear predictor for smoking given an age of 0.  
+> E) The expected change in the linear predictor with a one-unit
+> difference in age. 
 >  
 > > ## Solution
-> > A) 1   
-> > B) 4  
-> > C) 2  
-> > D) 3  
+> > A) 3   
+> > B) 1  
+> > C) 5  
+> > D) 2  
+> > E) 4
 > {: .solution}
 {: .challenge}
 
