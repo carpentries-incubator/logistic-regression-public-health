@@ -19,4 +19,6 @@ knitr_fig_path("01-")
 ```
 
 
-
+> ## What does $\text{log}()$ do?
+> 
+{: .callout}
