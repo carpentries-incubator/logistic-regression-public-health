@@ -17,11 +17,17 @@ execises: 10
 
 
 
+In this episode we will learn to fit a logistic regression model when we have one binary response variable and one continuous explanatory variable. Before we fit the model, we can explore the relationship between our variables graphically. We are checking whether, on average, observations split along the binary variable appear to differ in the explanatory variable.
+
+Let us take response variable `SmokeNow` and the continuous explanatory variable `Age`as an example. For participants that have smoked at least 100 cigarettes in their life, `SmokeNow` denotes whether they still smoke. The code below drops NAs in the response variable. The plotting is then initiated using `ggplot()`. Inside `aes()`, we select the response variable with `y = SmokeNow` and the continuous explanatory variable with `x = Age`. Finally, violin plots are called using `geom_violin()`.
+
+The plot suggests that on average, participants of younger age are still smoking and participants of older age have given up smoking. We can now proceed with fitting the logistic regression model. 
+
 
 ~~~
 dat %>%
   drop_na(SmokeNow) %>%
-  ggplot(aes(x = SmokeNow, y = Age)) +
+  ggplot(aes(y = SmokeNow, x = Age)) +
   geom_violin() 
 ~~~
 {: .language-r}
@@ -31,7 +37,7 @@ dat %>%
 > ## Exercise  
 > You have been asked to model the relationship between 
 > physical activity (`PhysActive`)
-> and `FEV1` in the NHANES data. Use the ggplot2
+> and `FEV1` in the NHANES data. Use the `ggplot2`
 > package to create an exploratory plot, ensuring that:
 > 1. NAs are discarded from the `PhysActive` variable.  
 > 2. Physical activity (`PhysActive`) on the y-axis and FEV1 
@@ -55,45 +61,13 @@ dat %>%
 > {: .solution}
 {: .challenge}
 
+We fit the model using `glm()`. As with the `lm()` command, we specify our response and explanatory variables with `formula = SmokeNow ~ Age`. In addition, we specify `family = "binomial"` so that a logistic regression model is fit by `glm()`.  
 
 
 ~~~
 SmokeNow_Age <- dat %>%
   glm(formula = SmokeNow ~ Age, family = "binomial")
 
-summ(SmokeNow_Age)
-~~~
-{: .language-r}
-
-
-
-~~~
-MODEL INFO:
-Observations: 3007 (6993 missing obs. deleted)
-Dependent Variable: SmokeNow
-Type: Generalized linear model
-  Family: binomial 
-  Link function: logit 
-
-MODEL FIT:
-χ²(1) = 574.29, p = 0.00
-Pseudo-R² (Cragg-Uhler) = 0.23
-Pseudo-R² (McFadden) = 0.14
-AIC = 3575.26, BIC = 3587.28 
-
-Standard errors: MLE
-------------------------------------------------
-                     Est.   S.E.   z val.      p
------------------ ------- ------ -------- ------
-(Intercept)          2.61   0.13    19.68   0.00
-Age                 -0.05   0.00   -21.77   0.00
-------------------------------------------------
-~~~
-{: .output}
-
-
-
-~~~
 summ(SmokeNow_Age, exp = TRUE)
 ~~~
 {: .language-r}
@@ -123,6 +97,56 @@ Age                      0.95    0.94    0.95   -21.77   0.00
 -------------------------------------------------------------
 ~~~
 {: .output}
+
+The logistic regression model equation associated with this model has the general form:
+
+$$\text{logit}(E(y)) = \beta_0 + \beta_1 \times x_1.$$
+
+Recall that $\beta_0$ estimates the log odds when $x_1 = 0$ and $\beta_1$ estimates the difference in the log odds associated with a one-unit difference in $x_1$. Using `summ()`, we can obtain estimates for $\beta_0$ and $\beta_1$:
+
+
+~~~
+summ(SmokeNow_Age, digits = 3)
+~~~
+{: .language-r}
+
+
+
+~~~
+MODEL INFO:
+Observations: 3007 (6993 missing obs. deleted)
+Dependent Variable: SmokeNow
+Type: Generalized linear model
+  Family: binomial 
+  Link function: logit 
+
+MODEL FIT:
+χ²(1) = 574.291, p = 0.000
+Pseudo-R² (Cragg-Uhler) = 0.232
+Pseudo-R² (McFadden) = 0.139
+AIC = 3575.264, BIC = 3587.281 
+
+Standard errors: MLE
+----------------------------------------------------
+                      Est.    S.E.    z val.       p
+----------------- -------- ------- --------- -------
+(Intercept)          2.607   0.132    19.684   0.000
+Age                 -0.054   0.002   -21.771   0.000
+----------------------------------------------------
+~~~
+{: .output}
+
+The equation therefore becomes:
+
+$$\text{logit}(E(\text{PhysActive})) = 2.607 - 0.054 \times \text{Age}.$$
+
+Alternatively, we can express the model equation in terms of the probability of "success": 
+
+$$\text{Pr}(y = 1) = \text{logit}^{-1}(\beta_0 + \beta_1 \times x_1).$$
+
+In this example, $SmokeNow = Yes$ is "success". The equation therefore becomes:
+
+$$\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{logit}^{-1}(2.607 - 0.054 \times \text{Age}).$$
 
 > ## Exercise  
 > 1. Using the `glm()` command, fit a logistic regression model
