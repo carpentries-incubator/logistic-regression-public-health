@@ -17,4 +17,6 @@ execises: 10
 
 
 
-
+> ## What does $\text{log}()$ do?
+> 
+{: .callout}
