@@ -153,9 +153,13 @@ $$
 \frac{\text{Pr}(y=1|x=a+1)}{\text{Pr}(y=0|x=a+1)} = \frac{\text{Pr}(y=1|x=a)}{\text{Pr}(y=0|x=a)} \times e^{\beta_1},
 $$
 
-where $\frac{\text{Pr}(y=1|x=a)}{\text{Pr}(y=0|x=a)}$ is read as the "odds of $y$ being $1$ *given* $x$ being $a$". In this context, $a$ is any value that $x$ can take on. 
+where $\frac{\text{Pr}(y=1|x=a)}{\text{Pr}(y=0|x=a)}$ is read as the 
+"odds of $y$ being $1$ *given* $x$ being $a$". 
+In this context, $a$ is any value that $x$ can take on. 
 
-Importantly, this means that the change in the odds of success is *not* linear. The change depends on the odds $\frac{\text{Pr}(y=1|x=a)}{\text{Pr}(y=0|x=a)}$. We will exemplify this in the challenge below. 
+Importantly, this means that the change in the odds of success is *not* linear. 
+The change depends on the odds $\frac{\text{Pr}(y=1|x=a)}{\text{Pr}(y=0|x=a)}$. 
+We will exemplify this in the challenge below. 
 
 > ## Exercise  
 > We are given the following odds of success: 
@@ -182,4 +186,31 @@ Importantly, this means that the change in the odds of success is *not* linear. 
 > {: .solution}
 {: .challenge}
 
+If you are interested in the reason why this multiplicative change exists, see the callout box below. 
 
+> ## Why does the odds change by a factor of $e^{\beta_1}$?
+> To understand the reason behind the multiplicative relationship, we need to 
+> look at the ratio of two odds:
+> $$\frac{\frac{\text{Pr}(y=1|x=a+1)}{\text{Pr}(y=0|x=a+1)}}{\frac{\text{Pr}(y=1|x=a)}{\text{Pr}(y=0|x=a)}}.$$
+> 
+> Let's call this ratio $A$. The numerator of $A$ is the odds of success when $x=a+1$. 
+> The denominator of $A$ is the odds of success when $x=a$. 
+> Therefore, if $A>1$ then the odds of success is greater when $x=a+1$. 
+> Alternatively, if $A<1$, then the odds of success is smaller when $x=a+1$.
+> 
+> The ratio of two odds can be expressed in terms of the exponentiated model equations:
+> 
+> $$\frac{\frac{\text{Pr}(y=1|x=a+1)}{\text{Pr}(y=0|x=a+1)}}{\frac{\text{Pr}(y=1|x=a)}{\text{Pr}(y=0|x=a)}} = \frac{e^{\beta_0 + \beta_1 \times (a+1)}}{e^{\beta_0 + \beta_1\times a}}.$$
+> 
+> Since the exponential of a sum is the product of the exponentiated components:
+> 
+> $$\frac{\frac{\text{Pr}(y=1|x=a+1)}{\text{Pr}(y=0|x=a+1)}}{\frac{\text{Pr}(y=1|x=a)}{\text{Pr}(y=0|x=a)}} = \frac{e^{\beta_0} \times e^{(\beta_1 \times a)} \times e^{\beta_1}}{e^{\beta_0} \times e^{(\beta_1 \times a)}}.$$
+> 
+> This can then be simplified by crossing out components found in the numerator and the denominator:
+> 
+> $$\frac{\frac{\text{Pr}(y=1|x=a+1)}{\text{Pr}(y=0|x=a+1)}}{\frac{\text{Pr}(y=1|x=a)}{\text{Pr}(y=0|x=a)}} = e^{\beta_1}.$$
+> 
+> Finally, bringing the denominator from the left-hand side to the right-hand side:
+> 
+> $$\frac{\text{Pr}(y=1|x=a+1)}{\text{Pr}(y=0|x=a+1)} =  \frac{\text{Pr}(y=1|x=a)}{\text{Pr}(y=0|x=a)} \times e^{\beta_1}.$$
+{: .callout}
