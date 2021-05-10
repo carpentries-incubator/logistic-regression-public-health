@@ -19,7 +19,7 @@ execises: 10
 
 In this episode we will learn to fit a logistic regression model when we have one binary response variable and one continuous explanatory variable. Before we fit the model, we can explore the relationship between our variables graphically. We are checking whether, on average, observations split along the binary variable appear to differ in the explanatory variable.
 
-Let us take response variable `SmokeNow` and the continuous explanatory variable `Age`as an example. For participants that have smoked at least 100 cigarettes in their life, `SmokeNow` denotes whether they still smoke. The code below drops NAs in the response variable. The plotting is then initiated using `ggplot()`. Inside `aes()`, we select the response variable with `y = SmokeNow` and the continuous explanatory variable with `x = Age`. Finally, violin plots are called using `geom_violin()`.
+Let us take response variable `SmokeNow` and the continuous explanatory variable `Age` as an example. For participants that have smoked at least 100 cigarettes in their life, `SmokeNow` denotes whether they still smoke. The code below drops NAs in the response variable. The plotting is then initiated using `ggplot()`. Inside `aes()`, we select the response variable with `y = SmokeNow` and the continuous explanatory variable with `x = Age`. Finally, violin plots are called using `geom_violin()`.
 
 The plot suggests that on average, participants of younger age are still smoking and participants of older age have given up smoking. We can now proceed with fitting the logistic regression model. 
 
@@ -144,7 +144,7 @@ Alternatively, we can express the model equation in terms of the probability of 
 
 $$\text{Pr}(y = 1) = \text{logit}^{-1}(\beta_0 + \beta_1 \times x_1).$$
 
-In this example, $SmokeNow = Yes$ is "success". The equation therefore becomes:
+In this example, $\text{SmokeNow} = \text{Yes}$ is "success". The equation therefore becomes:
 
 $$\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{logit}^{-1}(2.607 - 0.054 \times \text{Age}).$$
 
@@ -161,7 +161,7 @@ $$\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{logit}^{-1}(2.607 - 0.054 \tim
 > to differ, on average, for a one-unit difference in `FEV1`?  
 > C) Given these values and the names of the response and explanatory
 > variables, how can the general equation $\text{logit}(E(y)) = \beta_0 + \beta_1 \times x_1$ be adapted to represent the model?  
-> D) By how much is $\text{Pr}(\text{PhysActive} = \text{Yes})$ expected to be multiplied for a one-unit increase in `FEV1?`
+> D) By how much is $\frac{\text{Pr}(\text{PhysActive}}{\text{Pr}(\text{PhysActive}} = \text{No})$ expected to be multiplied for a one-unit increase in `FEV1?`
 >
 > > ## Solution
 > > 
@@ -244,15 +244,25 @@ $$\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{logit}^{-1}(2.607 - 0.054 \tim
 > > ~~~
 > > {: .output}
 > > 
-> > D) The multiplicative change in the probability of
+> > D) The multiplicative change in the odds of
 > > physical activity being "Yes" is estimated to be 1.00046. 
 > {: .solution}
 {: .challenge}
 
+Finally, we can visualise our model using the `effect_plot()` function from the `jtools` 
+package. Importantly, logistic regression models are often visualised in terms of 
+the probability of success, i.e. $\text{Pr}(\text{SmokeNow} = \text{Yes})$ in our example.
+
+We specify our model inside `effect_plot()`, alongside our explanatory variable of interest
+with `pred = Age`. To aid interpretation of the model, we include the original data points
+with `plot.points = TRUE`. Recall that our data is binary, so the data points are exclusively
+$0$s and $1$s. To avoid overlapping points becoming hard to interpret, we add jitter using
+`jitter = c(0.1, 0.05)` and opacity using `point.alpha = 0.1`. 
+
 
 ~~~
 effect_plot(SmokeNow_Age, pred = Age, plot.points = TRUE,
-            point.alpha = 0.1, jitter = c(0.1, 0.05))
+            jitter = c(0.1, 0.05), point.alpha = 0.1)
 ~~~
 {: .language-r}
 
@@ -267,7 +277,7 @@ effect_plot(SmokeNow_Age, pred = Age, plot.points = TRUE,
 > > 
 > > ~~~
 > > effect_plot(PhysActive_FEV1, pred = FEV1, plot.points = TRUE,
-> >             point.alpha = 0.1, jitter = c(0.1, 0.05)) +
+> >             jitter = c(0.1, 0.05), point.alpha = 0.1) +
 > >   ylab("Pr(PhysActive = Yes)")
 > > ~~~
 > > {: .language-r}
