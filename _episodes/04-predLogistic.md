@@ -4,8 +4,8 @@
 source: Rmd
 title: "Making predictions from a logistic regression model"
 objectives:
-  - "Calculate a prediction from a logistic regression model using parameter estimates given by the model output."
-  - "Use the `predict()` function to generate predictions from a simple linear regression model."
+  - "Calculate predictions in terms of the log odds and in terms of the probability of success from a logistic regression model using parameter estimates given by the model output."
+  - "Use the `make_predictions()` function from the `jtools` package to generate predictions from a logistic regression model in terms of the log odds and in terms of the probability of success."
 keypoints:
 questions:
 teaching: 10
@@ -16,3 +16,62 @@ execises: 10
 
 
 
+
+
+>## Exercise
+> Using the `make_predictions()` function and the `PhysActive_FEV1` model:  
+> A) Obtain the log odds of the expectation of physical activity for individuals 
+> with an FEV1 of 2000, 3000 or 4000. Ensure that your predictions include
+> confidence intervals.  
+> B) Exponentiate the log odds at an FEV1 of 3000. How many times more likely
+> is an individual with an FEV1 of 3000 predicted to be physically active?  
+> C) Obtain the probabilities of individuals with an FEV1 of 2000, 3000 or 4000
+> being physically active. Ensure that your predictions include 
+> confidence intervals.
+> 
+> > ## Solution
+> > A) Including `outcome.scale = "link"` gives us predictions on the log odds scale:
+> > 
+> > ~~~
+> > predictionDat <- tibble(FEV1 = c(2000, 3000, 4000))
+> > 
+> > make_predictions(PhysActive_FEV1, new_data = predictionDat,
+> >                  outcome.scale = "link")
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 3 x 4
+> >    FEV1 PhysActive   ymax   ymin
+> >   <dbl>      <dbl>  <dbl>  <dbl>
+> > 1  2000     -0.261 -0.175 -0.347
+> > 2  3000      0.202  0.255  0.148
+> > 3  4000      0.664  0.740  0.589
+> > ~~~
+> > {: .output}
+> > 
+> > B) $e^{0.202} = 1.22$, so an individual is 1.22 times more likely to be 
+> > physically active.  
+> > C) Ommitting `outcome.scale = "link"` gives us predictions on the 
+> > probability scale:
+> > 
+> > ~~~
+> > make_predictions(PhysActive_FEV1, new_data = predictionDat)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 3 x 4
+> >    FEV1 PhysActive  ymax  ymin
+> >   <dbl>      <dbl> <dbl> <dbl>
+> > 1  2000      0.435 0.456 0.414
+> > 2  3000      0.550 0.563 0.537
+> > 3  4000      0.660 0.677 0.643
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
