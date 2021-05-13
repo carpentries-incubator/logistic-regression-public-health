@@ -17,6 +17,82 @@ execises: 10
 
 
 
+~~~
+dat %>%
+  drop_na(SmokeNow) %>%
+  filter(Age == 60) %>%
+  count(SmokeNow) %>%
+  mutate(prop = n/sum(n))
+~~~
+{: .language-r}
+
+
+
+~~~
+  SmokeNow  n     prop
+1       No 37 0.637931
+2      Yes 21 0.362069
+~~~
+{: .output}
+
+
+
+~~~
+dat %>%
+  drop_na(SmokeNow) %>%
+  filter(between(Age, 55, 65)) %>%
+  count(SmokeNow) %>%
+  mutate(prop = n/sum(n)) %>%
+  filter(SmokeNow == "Yes") %>%
+  summarise(odds = prop/(1-prop),
+    log_odds = log(prop/(1-prop)))
+~~~
+{: .language-r}
+
+
+
+~~~
+       odds   log_odds
+1 0.6391437 -0.4476259
+~~~
+{: .output}
+
+> ## Exercise  
+> You have been asked to study physical activity (`PhysActive`) 
+> in individuals with an FEV1 (`FEV1`) between 3750 and 4250 in the NHANES data. 
+> Calculate the odds and the log odds of physical activity
+> for individuals with an FEV1 between 3750 and 4250. 
+> How is the odds interpreted here?
+>
+> > ## Solution
+> > 
+> > 
+> > ~~~
+> > dat %>%
+> >   drop_na(PhysActive) %>%
+> >   filter(between(FEV1, 3750, 4250)) %>%
+> >   count(PhysActive) %>%
+> >   mutate(prop = n/sum(n)) %>%
+> >   filter(PhysActive == "Yes") %>%
+> >   summarise(odds = prop/(1-prop),
+> >     log_odds = log(prop/(1-prop)))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >       odds log_odds
+> > 1 2.165289 0.772554
+> > ~~~
+> > {: .output}
+> > 
+> > Since the odds equal 2.17, we expect individuals with an FEV1 between 3750
+> > and 4250 to be 2.17 times more likely to be physically active than not. 
+> {: .solution}
+{: .challenge}
+
+
 > ## What does $\text{log}()$ do?
 > 
 {: .callout}
