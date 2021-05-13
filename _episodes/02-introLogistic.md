@@ -8,7 +8,7 @@ objectives:
   - "Describe the components that are involved in logistic regression."
   - "Formulate the model equation in terms of the log odds."
   - "Formulate the model equation in terms of the probability of success."
-  - "Express the effect of an explanatory variable in terms of a multiplicative change in the probability of success."
+  - "Express the effect of an explanatory variable in terms of a multiplicative change in the odds of success."
 keypoints:
 questions:
 teaching: 10
