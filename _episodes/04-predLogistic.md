@@ -4,8 +4,8 @@
 source: Rmd
 title: "Making predictions from a logistic regression model"
 objectives:
-  - "Calculate predictions in terms of the log odds and in terms of the probability of success from a logistic regression model using parameter estimates given by the model output."
-  - "Use the `make_predictions()` function from the `jtools` package to generate predictions from a logistic regression model in terms of the log odds and in terms of the probability of success."
+  - "Calculate predictions in terms of the log odds, the odds and the probability of success from a logistic regression model using parameter estimates given by the model output."
+  - "Use the `make_predictions()` function from the `jtools` package to generate predictions from a logistic regression model in terms of the log odds, the odds and the probability of success."
 keypoints:
 questions:
 teaching: 10
@@ -16,22 +16,114 @@ execises: 10
 
 
 
-Use `boot::inv.logit()` to calculate predictions on the probability scale. 
+As with the linear regression models, the logistic regression model allows us to make predictions. First we will calculate predictions of the log odds, the odds and the probability of success using the model equations. Then we will see how R can calculate predictions for us using the `predict()` function.
+
+Let us use the `SmokeNow_Age` model from the previous episode. The equation for this model in terms of the log odds was: 
+
+$$\text{logit}(E(\text{SmokeNow})) = 2.607 - 0.054 \times \text{Age}.$$
+
+Therefore, for a 30-year old individual, the model predicts a log odds of 
+
+$$\text{logit}(E(\text{SmokeNow})) = 2.607 - 0.054 \times 30 = 0.987.$$ 
+
+Since the odds are more interpretable than the log odds, we can convert our log odds prediction to the odds scale. We do so by exponentiation the log odds:
+
+$$\frac{E(\text{SmokeNow})}{1-E(\text{SmokeNow})} = e^{0.987} = 2.68.$$
+
+Therefore, the model predicts that individuals that have been smokers, are 2.68 as likely to still be smokers at the age of 30 than not. 
+
+Recall that the model could also be expressed in terms of the probability of "success": 
+
+$$\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{logit}^{-1}(2.607 - 0.054 \times \text{Age}).$$
+
+In R, we can calculate the inverse logit using the `inv.logit()` function from the `boot` package. Therefore, for a 30-year old individual, the model predicts a probability of $\text{SmokeNow} = \text{Yes}$:
+
+
+~~~
+inv.logit(2.607 - 0.054 * 30)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 0.728495
+~~~
+{: .output}
+
+Or in mathematical notation: $\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{logit}^{-1}(2.607 - 0.054 \times 30) = 0.728.$
 
 >## Exercise
 >Given the `summ` output from our `PhysActive_FEV1` model, 
->the model can be described
->as $\text{logit}(E(\text{PhysActive})) = -1.1860 + 0.00005 \times \text{FEV1}$. 
+>the model can be described as 
+> $$\text{logit}(E(\text{PhysActive})) = -1.1860 + 0.00005 \times \text{FEV1}.$$   
 >A) Calculate the log odds of physical activity predicted by the model for an
->individual with an FEV1 of of 3000.  
->B) Using the `inv.logit()` function from the package `boot`, calculate the
+>individual with an FEV1 of 3000.  
+>B) Calculate the odds of physical activity predicted by the model for an 
+> individual with an FEV1 of 3000. How many times is the individual more likely
+> to be physically active?  
+>C) Using the `inv.logit()` function from the package `boot`, calculate the
 >probability of an individual with an FEV1 of 3000 being physically active.
 > 
 > > ## Solution
-A) $\text{logit}(E(\text{PhysActive} | \text{FEV1} = 3000)) = -1.186 + 0.00046 \times 3000 = 0.194.$  
-B) $\text{Pr}(\text{PhysActive} | \text{FEV1} = 3000) = {logit}^{-1}(-1.186 + 0.00046 \times 3000) = 0.548$
+> > A) $\text{logit}(E(\text{PhysActive} | \text{FEV1} = 3000)) = -1.186 + 0.00046 \times 3000 = 0.194.$  
+> > B) $e^{0.194} = 1.21$, so the individual is 1.21 times more likely to be
+physically active than not.  
+> > C) $\text{Pr}(\text{PhysActive} | \text{FEV1} = 3000) = {logit}^{-1}(-1.186 + 0.00046 \times 3000) = 0.548$
 > {: .solution}
 {: .challenge}
+
+Using the `make_predictions()` function brings two advantages. First, when calculating multiple predictions, we are saved the effort of inserting multiple values into our model manually and doing the calculations. Secondly, `make_predictions()` returns 95% confidence intervals around the predictions, giving us a sense of the uncertainty around the predictions. 
+
+To use `make_predictions()`, we need to create a `tibble` with the explanatory variable values for which we wish to have mean predictions from the model. We do this using the `tibble()` function. Note that the column name must correspond to the name of the explanatory variable in the model, i.e. `Age`. In the code below, we create a `tibble` with the values 30, 50 and 70. We then provide `predict()` with this `tibble`, alongside the model from which we wish to have predictions.
+
+Recall that we can calculate predictions on the log odds or the probability scale. To obtain predictions on the log odds scale, we include `outcome.scale = "link"` in our `make_predicitons()` command. For example:
+
+
+~~~
+predictionDat <- tibble(Age = c(30, 50, 70)) #data for which we wish to predict
+
+make_predictions(SmokeNow_Age, new_data = predictionDat,
+                 outcome.scale = "link")
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 3 x 4
+    Age SmokeNow    ymax   ymin
+  <dbl>    <dbl>   <dbl>  <dbl>
+1    30    0.980  1.11    0.851
+2    50   -0.105 -0.0257 -0.184
+3    70   -1.19  -1.07   -1.31 
+~~~
+{: .output}
+
+From the output we can see that the model predicts a log odds of -0.105 for a 50-year old individual. The 95% confidence interval around this prediction is [-0.184, -0.0257]. 
+
+To calculate predictions on the probability scale, we include `outcome.scale = "response"` in our `make_predictions()` command:
+
+
+~~~
+make_predictions(SmokeNow_Age, new_data = predictionDat,
+                 outcome.scale = "response")
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 3 x 4
+    Age SmokeNow  ymax  ymin
+  <dbl>    <dbl> <dbl> <dbl>
+1    30    0.727 0.752 0.701
+2    50    0.474 0.494 0.454
+3    70    0.233 0.256 0.212
+~~~
+{: .output}
+
+From the output we can see that the model predicts a probability of still smoking of 0.474 for a 50-year old individual. The 95% confidence interval around this prediction is [0.454, 0.494].
 
 >## Exercise
 > Using the `make_predictions()` function and the `PhysActive_FEV1` model:  
@@ -69,11 +161,12 @@ B) $\text{Pr}(\text{PhysActive} | \text{FEV1} = 3000) = {logit}^{-1}(-1.186 + 0.
 > > 
 > > B) $e^{0.202} = 1.22$, so an individual is 1.22 times more likely to be 
 > > physically active.  
-> > C) Ommitting `outcome.scale = "link"` gives us predictions on the 
+> > C) Including `outcome.scale = "response"` gives us predictions on the 
 > > probability scale:
 > > 
 > > ~~~
-> > make_predictions(PhysActive_FEV1, new_data = predictionDat)
+> > make_predictions(PhysActive_FEV1, new_data = predictionDat,
+> >                  outcome.scale = "response")
 > > ~~~
 > > {: .language-r}
 > > 

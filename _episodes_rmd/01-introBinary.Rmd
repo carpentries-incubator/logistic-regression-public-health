@@ -11,12 +11,59 @@ questions:
 teaching: 10
 execises: 10
 ---
-
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
 source("../bin/obtain_data.R")
 knitr_fig_path("01-")
+library(dplyr)
+library(tidyr)
 ```
+
+
+```{r}
+dat %>%
+  drop_na(SmokeNow) %>%
+  filter(Age == 60) %>%
+  count(SmokeNow) %>%
+  mutate(prop = n/sum(n))
+```
+
+
+```{r}
+dat %>%
+  drop_na(SmokeNow) %>%
+  filter(between(Age, 55, 65)) %>%
+  count(SmokeNow) %>%
+  mutate(prop = n/sum(n)) %>%
+  filter(SmokeNow == "Yes") %>%
+  summarise(odds = prop/(1-prop),
+    log_odds = log(prop/(1-prop)))
+```
+
+> ## Exercise  
+> You have been asked to study physical activity (`PhysActive`) 
+> in individuals with an FEV1 (`FEV1`) between 3750 and 4250 in the NHANES data. 
+> Calculate the odds and the log odds of physical activity
+> for individuals with an FEV1 between 3750 and 4250. 
+> How is the odds interpreted here?
+>
+> > ## Solution
+> > 
+> > ```{r odds and log odds PhysActive_FEV1}
+> > dat %>%
+> >   drop_na(PhysActive) %>%
+> >   filter(between(FEV1, 3750, 4250)) %>%
+> >   count(PhysActive) %>%
+> >   mutate(prop = n/sum(n)) %>%
+> >   filter(PhysActive == "Yes") %>%
+> >   summarise(odds = prop/(1-prop),
+> >     log_odds = log(prop/(1-prop)))
+> > ```
+> > 
+> > Since the odds equal 2.17, we expect individuals with an FEV1 between 3750
+> > and 4250 to be 2.17 times more likely to be physically active than not. 
+> {: .solution}
+{: .challenge}
 
 
 > ## What does $\text{log}()$ do?
