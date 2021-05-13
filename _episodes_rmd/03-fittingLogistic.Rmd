@@ -122,7 +122,7 @@ $$\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{logit}^{-1}(2.607 - 0.054 \tim
 > > A) -1.1860     
 > > B) The log odds of physical activity is expected 
 > > to be 0.0005 for every unit increase in `FEV1`.      
-> > C) $\text{logit}(E(\text{PhysActive})) = -1.1860 + 0.00005 \times \text{FEV1}$.  
+> > C) $\text{logit}(E(\text{PhysActive})) = -1.186 + 0.00046 \times \text{FEV1}$.  
 > > 
 > > To answer question D, we add `exp = TRUE` to the `summ()`
 > > command:

@@ -16,7 +16,22 @@ execises: 10
 
 
 
+Use `boot::inv.logit()` to calculate predictions on the probability scale. 
 
+>## Exercise
+>Given the `summ` output from our `PhysActive_FEV1` model, 
+>the model can be described
+>as $\text{logit}(E(\text{PhysActive})) = -1.1860 + 0.00005 \times \text{FEV1}$. 
+>A) Calculate the log odds of physical activity predicted by the model for an
+>individual with an FEV1 of of 3000.  
+>B) Using the `inv.logit()` function from the package `boot`, calculate the
+>probability of an individual with an FEV1 of 3000 being physically active.
+> 
+> > ## Solution
+A) $\text{logit}(E(\text{PhysActive} | \text{FEV1} = 3000)) = -1.186 + 0.00046 \times 3000 = 0.194.$  
+B) $\text{Pr}(\text{PhysActive} | \text{FEV1} = 3000) = {logit}^{-1}(-1.186 + 0.00046 \times 3000) = 0.548$
+> {: .solution}
+{: .challenge}
 
 >## Exercise
 > Using the `make_predictions()` function and the `PhysActive_FEV1` model:  
