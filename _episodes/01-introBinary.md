@@ -35,6 +35,42 @@ dat %>%
 ~~~
 {: .output}
 
+> ## Exercise  
+> You have been asked to study physical activity (`PhysActive`) 
+> in individuals with an FEV1 (`FEV1`) between 3750 and 4250 in the NHANES data. 
+> A) Estimate the probabilitites that someone is or is not physically active
+> for individuals with an FEV1 between 3750 and 4250.   
+> B) What value is $E(\text{PhysActive})$ for individuals 
+> with an FEV1 between 3750 and 4250?
+>
+> > ## Solution
+> > A) To obtain the probabilities:
+> > 
+> > 
+> > ~~~
+> > dat %>%
+> >   drop_na(PhysActive) %>%
+> >   filter(between(FEV1, 3750, 4250)) %>%
+> >   count(PhysActive) %>%
+> >   mutate(prop = n/sum(n)) 
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >   PhysActive   n      prop
+> > 1         No 242 0.3159269
+> > 2        Yes 524 0.6840731
+> > ~~~
+> > {: .output}
+> > 
+> > We therefore estimate the probability of physical activity to be 0.61
+> > and the probability of no physical activity to be 0.39.  
+> > 
+> > B) $E(\text{PhysActive}) = Pr(\text{PhysActive} = \text{Yes}) = 0.61$
+> {: .solution}
+{: .challenge}
 
 
 ~~~
