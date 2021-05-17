@@ -18,20 +18,49 @@ load("../bin/data.RData")
 knitr_fig_path("01-")
 library(dplyr)
 library(tidyr)
+library(ggplot2)
+library(latex2exp)
 ```
 
+In this lesson we will work with binary outcome variables. 
+That is, variables which can take on two values.
+These could be $0$ vs. $1$, "success" vs. "failure" or "yes" vs. "no".
 
-```{r}
+By analysing binary data, we can estimate the probabilities of success and failure.
+For example, we may be interested in the probability that individuals between the 
+ages of 55 and 66, who have once been smokers, are still smoking during the NHANES
+study. 
+
+The probability of success is estimated by the proportion of individuals who are
+still smoking. Similarly, the probability of failure is estimated by the 
+proportion of individuals who are no longer smoking.
+
+We calculate these values in RStudio by removing empty rows with `drop_na()`,
+subsetting individuals of the appropriate age using `filter()`, counting
+the number of individuals in each of the two levels of `SmokeNow` using
+`count()` and calculating proportions by dividing the counts by the total number
+of non-NA observations using `mutate()`. 
+
+
+```{r calculate probabilities SmokeNow_Age}
 dat %>%
   drop_na(SmokeNow) %>%
-  filter(Age == 60) %>%
-  count(SmokeNow) %>%
+  filter(between(Age, 55, 66)) %>%
+  count(SmokeNow, name = "n") %>%
   mutate(prop = n/sum(n))
 ```
 
+We see that the probability of success is estimated as $0.38$ and the probability
+of failure is estimated as $0.62$. 
+
+In the linear regression lessons, we modelled the *expectation* of the outcome 
+variable, $E(y)$. In the case of binary variables, we will also work with the
+expectation of the outcome variable. When $y$ is a binary variable, $E(y)$ is
+equal to the proportion of successes. In our example above, $E(y) = \text{Pr}(\text{SmokeNow} = \text{Yes}) = 0.38$. 
+
 > ## Exercise  
 > You have been asked to study physical activity (`PhysActive`) 
-> in individuals with an FEV1 (`FEV1`) between 3750 and 4250 in the NHANES data. 
+> in individuals with an FEV1 (`FEV1`) between 3750 and 4250 in the NHANES data.   
 > A) Estimate the probabilitites that someone is or is not physically active
 > for individuals with an FEV1 between 3750 and 4250.   
 > B) What value is $E(\text{PhysActive})$ for individuals 
@@ -48,17 +77,60 @@ dat %>%
 > >   mutate(prop = n/sum(n)) 
 > > ```
 > > 
-> > We therefore estimate the probability of physical activity to be 0.61
-> > and the probability of no physical activity to be 0.39.  
+> > We therefore estimate the probability of physical activity to be $0.68$
+> > and the probability of no physical activity to be $0.32$.  
 > > 
-> > B) $E(\text{PhysActive}) = Pr(\text{PhysActive} = \text{Yes}) = 0.61$
+> > B) $E(\text{PhysActive}) = Pr(\text{PhysActive} = \text{Yes}) = 0.68$
 > {: .solution}
 {: .challenge}
+
+Beyond probabilities, binary data is often interpreted through odds. 
+The odds are defined as:
+
+$$\frac{E(y)}{1-E(y)}.$$
+
+Since the expectation of $y$ equals the probability of success, the odds can also
+be written as:
+
+$$\frac{E(y)}{1-E(y)} = \frac{\text{Pr}(\text{Success})}{1-\text{Pr}(\text{Success})} = \frac{\text{Pr}(\text{Success})}{\text{Pr}(\text{Failure})}.$$
+
+Therefore, an odds greater than $1$ indicates that the probability of success
+is greater than the probability of failure. An odds less than $1$ indicates that
+the probability of failure is greater than the probability of success. 
+
+As we will see in the next episode, binary outcome variables are modelled through
+the *log odds*, i.e.:
+
+$$\text{log}\left(\frac{E(y)}{1-E(y)}\right)$$
+
+As we can see in the plot below, a log odds greater than zero is associated with 
+a probability of success greater than 0.5. Likewise, a log odds smaller than 0 
+is associated with a probability of success less than 0.5. 
+
+```{r plot log odds vs expectation, echo = FALSE}
+tibble(E_y = seq(0,1,length.out = 10000)) %>%
+  mutate(odds = E_y / (1 - E_y),
+         log_odds = log(E_y / (1 - E_y))) %>%
+  ggplot(aes(x = E_y, y = log_odds)) +
+  geom_line() +
+  xlab(TeX(r'($E(y)$)')) +
+  ylab(TeX(r'($log\left(\frac{E(y)}{1-E(y)}\right)$)')) +
+  ylim(-6, 6)
+```
+
+The interpretation of the probabilities, odds and log odds is summarised in the
+table below:
+
+| Measure     | Turning point | Interpretation                                      |
+|-------------|---------------|-----------------------------------------------------|
+| Probability | 0.5           | Proportion of observations that are successes       |
+| Odds        | 1.0           | How many times more likely is success than failure? |
+| Log odds    | 0             | If log odds > 0, probability is > 0.5.              |
 
 ```{r}
 dat %>%
   drop_na(SmokeNow) %>%
-  filter(between(Age, 55, 65)) %>%
+  filter(between(Age, 55, 66)) %>%
   count(SmokeNow) %>%
   mutate(prop = n/sum(n)) %>%
   filter(SmokeNow == "Yes") %>%
