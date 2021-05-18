@@ -169,5 +169,26 @@ dat %>%
 
 
 > ## What does $\text{log}()$ do?
+> The $\text{log}()$ is a transformation used widely in statistics, including
+> in the modelling of binary variables. In general, $\text{log}_a(b)$ tells us
+> to what power we need to raise $a$ to obtain the value $b$.  
+> 
+> For example, $2^3 = 2 \times 2 \times 2 = 8$. Therefore, $\text{log}_2(8)=3$, 
+> since we raise $2$ to the power of $3$ to obtain 8.
+> 
+> Similarly, $\text{log}_3(81)=4$, since $3^4=81$. 
+> 
+> In logistic regression, we use $\text{log}_{e}()$, where $e$ is a mathematical 
+> constant. The constant $e$ approximately equals 2.718. 
+> 
+> Rather than writing $\text{log}_{e}()$, 
+> we write $\text{log}()$ for simplicity.
+> 
+> In R, we can calculate the log using the `log()` function. For example, 
+> to calculate to what power we need to raise $e$ to obtain $10$:
+> 
+> ```{r log example}
+> log(10)
+> ```
 > 
 {: .callout}
