@@ -101,6 +101,25 @@ equal to the proportion of successes. In our example above, $E(y) = \text{Pr}(\t
 > {: .solution}
 {: .challenge}
 
+> ## Why does $E(y)$ equal the probability of success?
+> In general, the expectation of a variable equals its probability-weighted mean. 
+> This is calculated by taking the sum of all values that a variable can take on, 
+> each multiplied by the probability of that value occuring. 
+> 
+> In mathematical notation, this is indicated by:
+> 
+> $$E(y) = \sum\Big(y_i \times \text{Pr}(y = y_i)\Big)$$
+> 
+> In the case of a binary variable, the variable can take on 
+> one of two values: $0$ and $1$. Therefore, the expectation becomes:
+> 
+> $$E(y) = \sum\Big(y_i \times \text{Pr}(y = y_i)\Big) = 0 \times \text{Pr}(y = 0) + 1 \times \text{Pr}(y = 1) = \text{Pr}(y = 1)$$
+> 
+> Since "success" is considered $y=1$, the expectation of a binary variable 
+> therefore equals the probability of success.
+> 
+{: .callout}
+
 ## Odds and log odds
 
 Besides probabilities, binary data is often interpreted through odds. 
