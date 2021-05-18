@@ -19,6 +19,8 @@ In this lesson we will work with binary outcome variables.
 That is, variables which can take on two values.
 These could be $0$ vs. $1$, "success" vs. "failure" or "yes" vs. "no".
 
+## Probabilities and expectation
+
 By analysing binary data, we can estimate the probabilities of success and failure.
 For example, we may be interested in the probability that individuals between the 
 ages of 55 and 66, who have once been smokers, are still smoking during the NHANES
@@ -95,11 +97,13 @@ equal to the proportion of successes. In our example above, $E(y) = \text{Pr}(\t
 > > We therefore estimate the probability of physical activity to be $0.68$
 > > and the probability of no physical activity to be $0.32$.  
 > > 
-> > B) $E(\text{PhysActive}) = Pr(\text{PhysActive} = \text{Yes}) = 0.68$
+> > B) $E(\text{PhysActive}) = \text{Pr}(\text{PhysActive} = \text{Yes}) = 0.68$
 > {: .solution}
 {: .challenge}
 
-Beyond probabilities, binary data is often interpreted through odds. 
+## Odds and log odds
+
+Besides probabilities, binary data is often interpreted through odds. 
 The odds are defined as:
 
 $$\frac{E(y)}{1-E(y)}.$$
@@ -110,10 +114,10 @@ be written as:
 $$\frac{E(y)}{1-E(y)} = \frac{\text{Pr}(\text{Success})}{1-\text{Pr}(\text{Success})} = \frac{\text{Pr}(\text{Success})}{\text{Pr}(\text{Failure})}.$$
 
 Therefore, an odds greater than $1$ indicates that the probability of success
-is greater than the probability of failure. An odds less than $1$ indicates that
-the probability of failure is greater than the probability of success. 
+is greater than the probability of failure. For example, an odds of 1.5 indicates that success is 1.5 times as likely as failure. An odds less than $1$ indicates that
+the probability of failure is greater than the probability of success. For example, an odds of 0.75 indicates that success is 0.75 times as likely as failure. 
 
-As we will see in the next episode, binary outcome variables are modelled through
+As we will see in the next episode, binary outcome variables can be modelled through
 the *log odds*, i.e.:
 
 $$\text{log}\left(\frac{E(y)}{1-E(y)}\right)$$
