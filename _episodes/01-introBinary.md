@@ -9,7 +9,15 @@ objectives:
   - "Calculate and interpret the odds of success given binary data."
   - "Calculate and interpret the log odds of success given binary data."
 keypoints:
+  - "The probabilities of success and failure are estimated as the proportions of participants with a success and failure, respectively."
+  - "The expectation of a binary variable equals the probability of success."
+  - "The odds equal the ratio of the probability of success and one minus the probability of success. The odds quantify how many times more likely success is than failure."
+  - "The log odds are calculated by taking the log of the odds. When the log odds are greater than 0, the probability of success is greater than 0.5."
 questions:
+  - "How are probabilities of success and failure calculated?"
+  - "How is the expectation of a binary variable interpreted?"
+  - "How are the odds calculated and interpreted?"
+  - "How are the log odds calculated and interpreted?"
 teaching: 10
 execises: 10
 ---
@@ -57,12 +65,13 @@ dat %>%
 {: .output}
 
 We see that the probability of success is estimated as $0.38$ and the probability
-of failure is estimated as $0.62$. 
+of failure is estimated as $0.62$. In mathematical notation: 
+$\text{Pr}(\text{SmokeNow} = \text{Yes}) = 0.38$ and $\text{Pr}(\text{SmokeNow} = \text{No}) = 0.62$.
 
 In the linear regression lessons, we modelled the *expectation* of the outcome 
 variable, $E(y)$. In the case of binary variables, we will also work with the
 expectation of the outcome variable. When $y$ is a binary variable, $E(y)$ is
-equal to the proportion of successes. In our example above, $E(y) = \text{Pr}(\text{SmokeNow} = \text{Yes}) = 0.38$. 
+equal to the probability of success. In our example above, $E(y) = \text{Pr}(\text{SmokeNow} = \text{Yes}) = 0.38$. 
 
 > ## Exercise  
 > You have been asked to study physical activity (`PhysActive`) 
@@ -108,15 +117,15 @@ equal to the proportion of successes. In our example above, $E(y) = \text{Pr}(\t
 > 
 > In mathematical notation, this is indicated by:
 > 
-> $$E(y) = \sum\Big(y_i \times \text{Pr}(y = y_i)\Big)$$
+> $$E(y) = \sum_i\Big(y_i \times \text{Pr}(y = y_i)\Big)$$
 > 
 > In the case of a binary variable, the variable can take on 
 > one of two values: $0$ and $1$. Therefore, the expectation becomes:
 > 
-> $$E(y) = \sum\Big(y_i \times \text{Pr}(y = y_i)\Big) = 0 \times \text{Pr}(y = 0) + 1 \times \text{Pr}(y = 1) = \text{Pr}(y = 1)$$
+> $$E(y) = \sum_i\Big(y_i \times \text{Pr}(y = y_i)\Big) = 0 \times \text{Pr}(y = 0) + 1 \times \text{Pr}(y = 1) = \text{Pr}(y = 1)$$
 > 
 > Since "success" is considered $y=1$, the expectation of a binary variable 
-> therefore equals the probability of success.
+> equals the probability of success.
 > 
 {: .callout}
 
@@ -155,6 +164,12 @@ table below:
 | Probability | 0.5           | Proportion of observations that are successes       |
 | Odds        | 1.0           | How many times more likely is success than failure? |
 | Log odds    | 0             | If log odds > 0, probability is > 0.5.              |
+
+The odds and the log odds can be calculated in RStudio through an
+extension of the code that we used to calculate the probabilities. 
+From our table of probabilities we isolate the row with the probability
+of success using `filter()`. We then calculate the odds and the log odds
+using the `summarise()` function. 
 
 
 ~~~
