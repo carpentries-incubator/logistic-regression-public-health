@@ -3,12 +3,19 @@ source: Rmd
 title: "An introduction to logistic regression"
 objectives:
   - "Identify questions that can be addressed with a logistic regression model."
-  - "Describe the components that are involved in logistic regression."
   - "Formulate the model equation in terms of the log odds."
   - "Formulate the model equation in terms of the probability of success."
-  - "Express the effect of an explanatory variable in terms of a multiplicative change in the odds of success."
+  - "Express the effect of an explanatory variable in terms of a multiplicative change in the odds."
 keypoints:
+  - "Logistic regression requires one binary dependent variable and one or more continuous or categorical explanatory variables."
+  - "The model equation in terms of the log odds is $\text{logit}(E(y)) = \beta_0 + \beta_1 \times x_1$."
+  - "The model equation in terms of the probability of success is $E(y) & = \text{logit}^{-1}(\beta_0 + \beta_1 \times x_1)$."
+  - "The odds is multiplied by $e^{\beta_1} for a one-unit increase in $x_1$."
 questions:
+  - "In what scenario is a logistic regression model useful?"
+  - "How is the logsitic regression model expressed in terms of the log odds?"
+  - "How is the logsitic regression model expressed in terms of the probability of success?"
+  - "What is the effect of the explanatory variable in terms of the odds?"
 teaching: 10
 execises: 10
 ---
@@ -19,6 +26,8 @@ source("../bin/chunk-options.R")
 load("../bin/data.RData")
 knitr_fig_path("01-")
 ```
+
+## Scenarios in which logistic regression may be useful
 
 Logistic regression is commonly used, but when is it appropriate to apply this method? Broadly speaking, logistic regression may be suitable when the following conditions hold:
 
@@ -57,6 +66,7 @@ participants without diabetes?
 > {: .solution}
 {: .challenge}
 
+## The logistic regression model equation in terms of the log odds
 
 The logistic regression model can be described by the following equation:
 
@@ -115,6 +125,8 @@ Before fitting the model, we have access to $y$ and $x_1$ values for each observ
 > {: .solution}
 {: .challenge}
 
+## The logistic regression model equation in terms of the probability of success
+
 Alternatively, the logistic regression model can be expressed in terms of probabilities of success. This formula is obtained by using the *inverse* function of $\text{logit}()$, denoted by $\text{logit}^{-1}()$. In general terms, an inverse function "reverses" the original function, returning the input value. This means that $\text{logit}^{-1}(\text{logit}(E(y))) = E(y)$. Taking the inverse logit on both sides of the logistic regression equation introduced above, we obtain:
 
 $$
@@ -152,6 +164,8 @@ The advantage of this formulation is that our output is in terms of probabilitie
 > > E) 4
 > {: .solution}
 {: .challenge}
+
+## The multiplicative change in the odds ratio
 
 As we have seen above, the effect of an explanatory variable is expressed in terms of the log odds of success. For every unit increase in $x_1$, the log odds changes by $\beta_1$. For a different interpretation, we can express the effect of an explanatory variable in terms of *multiplicative change* in the *odds of success*. 
 
