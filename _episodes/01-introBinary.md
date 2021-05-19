@@ -9,7 +9,15 @@ objectives:
   - "Calculate and interpret the odds of success given binary data."
   - "Calculate and interpret the log odds of success given binary data."
 keypoints:
+  - "The probabilities of success and failure are estimated as the proportions of participants with a success and failure, respectively."
+  - "The expectation of a binary variable equals the probability of success."
+  - "The odds equal the ratio of the probability of success and one minus the probability of success. The odds quantify how many times more likely success is than failure."
+  - "The log odds are calculated by taking the log of the odds. When the log odds are greater than 0, the probability of success is greater than 0.5."
 questions:
+  - "How are probabilities of success and failure calculated?"
+  - "How is the expectation of a binary variable interpreted?"
+  - "How are the odds calculated and interpreted?"
+  - "How are the log odds calculated and interpreted?"
 teaching: 10
 execises: 10
 ---
@@ -58,7 +66,7 @@ dat %>%
 
 We see that the probability of success is estimated as $0.38$ and the probability
 of failure is estimated as $0.62$. In mathematical notation: 
-$\text{Pr}(\text{SmokeNow} = \text{Yes}) = 0.38$ and $\text{Pr}(\text{SmokeNow} = \text{No}) = 0.62$
+$\text{Pr}(\text{SmokeNow} = \text{Yes}) = 0.38$ and $\text{Pr}(\text{SmokeNow} = \text{No}) = 0.62$.
 
 In the linear regression lessons, we modelled the *expectation* of the outcome 
 variable, $E(y)$. In the case of binary variables, we will also work with the
