@@ -7,7 +7,7 @@ objectives:
   - "Use the `ggplot2` package to explore the relationship between a binary response variable and a continuous explanatory variable."
   - "Use the `glm()` function to fit a logistic regression model with one continuous explanatory variable."
   - "Use the `summ()` function from the `jtools` package to interpret the model output in terms of the log odds."
-  - "Use the `summ()` function from the `jtools` package to interpret the model output in terms of the odds ratio."
+  - "Use the `summ()` function from the `jtools` package to interpret the model output in terms of the multiplicative change in the odds of success."
   - "Use the `jtools` and `ggplot2` packages to visualise the resulting model."
 keypoints:
 questions:
@@ -40,7 +40,7 @@ dat %>%
 > and `FEV1` in the NHANES data. Use the `ggplot2`
 > package to create an exploratory plot, ensuring that:
 > 1. NAs are discarded from the `PhysActive` variable.  
-> 2. Physical activity (`PhysActive`) on the y-axis and FEV1 
+> 2. Physical activity (`PhysActive`) is on the y-axis and FEV1 
 > (`FEV1`) on the x-axis.
 > 3. This data is shown as a violin plot.  
 > 4. The y-axis is labelled as "Physically active".
@@ -67,36 +67,8 @@ We fit the model using `glm()`. As with the `lm()` command, we specify our respo
 ~~~
 SmokeNow_Age <- dat %>%
   glm(formula = SmokeNow ~ Age, family = "binomial")
-
-summ(SmokeNow_Age, exp = TRUE)
 ~~~
 {: .language-r}
-
-
-
-~~~
-MODEL INFO:
-Observations: 3007 (6993 missing obs. deleted)
-Dependent Variable: SmokeNow
-Type: Generalized linear model
-  Family: binomial 
-  Link function: logit 
-
-MODEL FIT:
-χ²(1) = 574.29, p = 0.00
-Pseudo-R² (Cragg-Uhler) = 0.23
-Pseudo-R² (McFadden) = 0.14
-AIC = 3575.26, BIC = 3587.28 
-
-Standard errors: MLE
--------------------------------------------------------------
-                    exp(Est.)    2.5%   97.5%   z val.      p
------------------ ----------- ------- ------- -------- ------
-(Intercept)             13.55   10.45   17.57    19.68   0.00
-Age                      0.95    0.94    0.95   -21.77   0.00
--------------------------------------------------------------
-~~~
-{: .output}
 
 The logistic regression model equation associated with this model has the general form:
 
@@ -138,7 +110,7 @@ Age                 -0.054   0.002   -21.771   0.000
 
 The equation therefore becomes:
 
-$$\text{logit}(E(\text{PhysActive})) = 2.607 - 0.054 \times \text{Age}.$$
+$$\text{logit}(E(\text{SmokeNow})) = 2.607 - 0.054 \times \text{Age}.$$
 
 Alternatively, we can express the model equation in terms of the probability of "success": 
 
@@ -147,6 +119,46 @@ $$\text{Pr}(y = 1) = \text{logit}^{-1}(\beta_0 + \beta_1 \times x_1).$$
 In this example, $\text{SmokeNow} = \text{Yes}$ is "success". The equation therefore becomes:
 
 $$\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{logit}^{-1}(2.607 - 0.054 \times \text{Age}).$$
+
+Recall that the odds of success, 
+$\frac{\text{Pr}(\text{SmokeNow} = \text{Yes})}{\text{Pr}(\text{SmokeNow} = \text{No})}$, 
+is multiplied by a factor of $e^{\beta_1}$ for every one-unit increase in $x_1$.
+We can find this factor using `summ()`, including `exp = TRUE`:
+
+
+~~~
+summ(SmokeNow_Age, digits = 3, exp = TRUE)
+~~~
+{: .language-r}
+
+
+
+~~~
+MODEL INFO:
+Observations: 3007 (6993 missing obs. deleted)
+Dependent Variable: SmokeNow
+Type: Generalized linear model
+  Family: binomial 
+  Link function: logit 
+
+MODEL FIT:
+χ²(1) = 574.291, p = 0.000
+Pseudo-R² (Cragg-Uhler) = 0.232
+Pseudo-R² (McFadden) = 0.139
+AIC = 3575.264, BIC = 3587.281 
+
+Standard errors: MLE
+-----------------------------------------------------------------
+                    exp(Est.)     2.5%    97.5%    z val.       p
+----------------- ----------- -------- -------- --------- -------
+(Intercept)            13.552   10.454   17.567    19.684   0.000
+Age                     0.947    0.943    0.952   -21.771   0.000
+-----------------------------------------------------------------
+~~~
+{: .output}
+
+The model therefore predicts that the odds of success will be multiplied by
+$0.947$ for every one-unit increase in $x_1$
 
 > ## Exercise  
 > 1. Using the `glm()` command, fit a logistic regression model
@@ -161,7 +173,7 @@ $$\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{logit}^{-1}(2.607 - 0.054 \tim
 > to differ, on average, for a one-unit difference in `FEV1`?  
 > C) Given these values and the names of the response and explanatory
 > variables, how can the general equation $\text{logit}(E(y)) = \beta_0 + \beta_1 \times x_1$ be adapted to represent the model?  
-> D) By how much is $\frac{\text{Pr}(\text{PhysActive}}{\text{Pr}(\text{PhysActive}} = \text{No})$ expected to be multiplied for a one-unit increase in `FEV1?`
+> D) By how much is $\frac{\text{Pr}(\text{PhysActive})}{\text{Pr}(\text{PhysActive})} = \text{No}$ expected to be multiplied for a one-unit increase in `FEV1?`
 >
 > > ## Solution
 > > 
