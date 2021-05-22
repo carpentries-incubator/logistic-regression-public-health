@@ -7,10 +7,10 @@ objectives:
   - "Formulate the model equation in terms of the probability of success."
   - "Express the effect of an explanatory variable in terms of a multiplicative change in the odds."
 keypoints:
-  - "Logistic regression requires one binary dependent variable and one or more continuous or categorical explanatory variables."
-  - "The model equation in terms of the log odds is $\text{logit}(E(y)) = \beta_0 + \beta_1 \times x_1$."
-  - "The model equation in terms of the probability of success is $E(y) & = \text{logit}^{-1}(\beta_0 + \beta_1 \times x_1)$."
-  - "The odds is multiplied by $e^{\beta_1} for a one-unit increase in $x_1$."
+  - Logistic regression requires one binary dependent variable and one or more continuous or categorical explanatory variables.
+  - The model equation in terms of the log odds is $\text{logit}(E(y)) = \beta_0 + \beta_1 \times x_1$.
+  - The model equation in terms of the probability of success is $E(y) = \text{logit}^{-1}(\beta_0 + \beta_1 \times x_1)$.
+  - The odds is multiplied by $e^{\beta_1}$ for a one-unit increase in $x_1$.
 questions:
   - "In what scenario is a logistic regression model useful?"
   - "How is the logsitic regression model expressed in terms of the log odds?"
