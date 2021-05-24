@@ -10,7 +10,17 @@ objectives:
   - "Use the `summ()` function from the `jtools` package to interpret the model output in terms of the multiplicative change in the odds of success."
   - "Use the `jtools` and `ggplot2` packages to visualise the resulting model."
 keypoints:
+  - "A violin plot can be used to explore the relationship between a binary response variable and a continuous explanatory variable."
+  - "Instead of `lm()`, `glm()` with `family = binomial` is used to fit a logistic regression model."
+  - "The defualt `summ()` output shows the model coefficients in terms of the log odds."
+  - "Adding `exp = TRUE` to `summ()` allows us to interpret the model in terms of the multiplicative change in the odds of success."
+  - "The logistic regression model is visualised in terms of the probability of success."
 questions:
+  - "How can the relationship between a binary response variable and a continuous explanatory variable be visualised in R?"
+  - "How can a logistic regression model be fit in R?"
+  - "How can the output of a logistic regression model be interpreted in terms of the log odds in R?"
+  - "How can the output of a logistic regression model be interpreted in terms of the multiplicative change in the odds of success in R?"
+  - "How can a logistic regression model be visualised in R?"
 teaching: 10
 execises: 10
 ---
