@@ -35,7 +35,10 @@ library(ggplot2)
 library(jtools)
 ```
 
-In this episode we will learn to fit a logistic regression model when we have one binary response variable and one continuous explanatory variable. Before we fit the model, we can explore the relationship between our variables graphically. We are getting a sense of whether, on average, observations split along the binary variable appear to differ in the explanatory variable.
+In this episode we will learn to fit a logistic regression model when we have one binary response variable and one continuous explanatory variable. 
+
+## Exploring the relationship between the binary and continuous variables 
+Before we fit the model, we can explore the relationship between our variables graphically. We are getting a sense of whether, on average, observations split along the binary variable appear to differ in the explanatory variable.
 
 Let us take response variable `SmokeNow` and the continuous explanatory variable `Age` as an example. For participants that have smoked at least 100 cigarettes in their life, `SmokeNow` denotes whether they still smoke. The code below drops NAs in the response variable. The plotting is then initiated using `ggplot()`. Inside `aes()`, we select the response variable with `y = SmokeNow` and the continuous explanatory variable with `x = Age`. Finally, violin plots are called using `geom_violin()`.
 
@@ -71,6 +74,7 @@ The plot suggests that on average, participants of younger age are still smoking
 > {: .solution}
 {: .challenge}
 
+## Fitting and interpreting the logistic regression model
 We fit the model using `glm()`. As with the `lm()` command, we specify our response and explanatory variables with `formula = SmokeNow ~ Age`. In addition, we specify `family = "binomial"` so that a logistic regression model is fit by `glm()`.  
 
 ```{r fit SmokeNow_Age}
@@ -157,6 +161,7 @@ $0.947$ for every one-unit increase in $x_1$.
 > {: .solution}
 {: .challenge}
 
+## Visualising the logistic regression model
 Finally, we can visualise our model using the `effect_plot()` function from the `jtools` 
 package. Importantly, logistic regression models are often visualised in terms of 
 the probability of success, i.e. $\text{Pr}(\text{SmokeNow} = \text{Yes})$ in our example.
