@@ -56,7 +56,7 @@ Or in mathematical notation: $\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{lo
 >## Exercise
 >Given the `summ` output from our `PhysActive_FEV1` model, 
 >the model can be described as 
-> $$\text{logit}(E(\text{PhysActive})) = -1.1860 + 0.00005 \times \text{FEV1}.$$   
+> $$\text{logit}(E(\text{PhysActive})) = -1.1860 + 0.00046 \times \text{FEV1}.$$   
 >A) Calculate the log odds of physical activity predicted by the model for an
 >individual with an FEV1 of 3000.  
 >B) Calculate the odds of physical activity predicted by the model for an 
@@ -66,10 +66,10 @@ Or in mathematical notation: $\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{lo
 >probability of an individual with an FEV1 of 3000 being physically active.
 > 
 > > ## Solution
-> > A) $\text{logit}(E(\text{PhysActive} | \text{FEV1} = 3000)) = -1.186 + 0.00046 \times 3000 = 0.194.$  
+> > A) $\text{logit}(E(\text{PhysActive}) = -1.186 + 0.00046 \times 3000 = 0.194.$  
 > > B) $e^{0.194} = 1.21$, so the individual is 1.21 times more likely to be
 physically active than not.  
-> > C) $\text{Pr}(\text{PhysActive} | \text{FEV1} = 3000) = {logit}^{-1}(-1.186 + 0.00046 \times 3000) = 0.548$
+> > C) $\text{Pr}(\text{PhysActive}) = {logit}^{-1}(-1.186 + 0.00046 \times 3000) = 0.548$
 > {: .solution}
 {: .challenge}
 
@@ -130,8 +130,8 @@ From the output we can see that the model predicts a probability of still smokin
 > A) Obtain the log odds of the expectation of physical activity for individuals 
 > with an FEV1 of 2000, 3000 or 4000. Ensure that your predictions include
 > confidence intervals.  
-> B) Exponentiate the log odds at an FEV1 of 3000. How many times more likely
-> is an individual with an FEV1 of 3000 predicted to be physically active?  
+> B) Exponentiate the log odds at an FEV1 of 4000. How many times more likely
+> is an individual with an FEV1 of 4000 predicted to be physically active?  
 > C) Obtain the probabilities of individuals with an FEV1 of 2000, 3000 or 4000
 > being physically active. Ensure that your predictions include 
 > confidence intervals.
@@ -159,7 +159,7 @@ From the output we can see that the model predicts a probability of still smokin
 > > ~~~
 > > {: .output}
 > > 
-> > B) $e^{0.202} = 1.22$, so an individual is 1.22 times more likely to be 
+> > B) $e^{0.664} = 1.94$, so an individual is 1.94 times more likely to be 
 > > physically active.  
 > > C) Including `outcome.scale = "response"` gives us predictions on the 
 > > probability scale:
