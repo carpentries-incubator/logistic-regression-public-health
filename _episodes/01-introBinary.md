@@ -68,6 +68,10 @@ We see that the probability of success is estimated as $0.38$ and the probabilit
 of failure is estimated as $0.62$. In mathematical notation: 
 $\text{Pr}(\text{SmokeNow} = \text{Yes}) = 0.38$ and $\text{Pr}(\text{SmokeNow} = \text{No}) = 0.62$.
 
+You may have noticed that the probabilities of success and failure add to 1. 
+This is true as a general rule. Therefore, the probability of success equals
+1 minus the probability of failure: $\text{Pr}(\text{Success}) = 1 - \text{Pr}(\text{Failure})$.
+
 In the linear regression lessons, we modelled the *expectation* of the outcome 
 variable, $E(y)$. In the case of binary variables, we will also work with the
 expectation of the outcome variable. When $y$ is a binary variable, $E(y)$ is
