@@ -17,11 +17,9 @@ execises: 10
 
 
 
-In this episode we will learn to fit a logistic regression model when we have one binary response variable and one continuous explanatory variable. Before we fit the model, we can explore the relationship between our variables graphically. We are checking whether, on average, observations split along the binary variable appear to differ in the explanatory variable.
+In this episode we will learn to fit a logistic regression model when we have one binary response variable and one continuous explanatory variable. Before we fit the model, we can explore the relationship between our variables graphically. We are getting a sense of whether, on average, observations split along the binary variable appear to differ in the explanatory variable.
 
 Let us take response variable `SmokeNow` and the continuous explanatory variable `Age` as an example. For participants that have smoked at least 100 cigarettes in their life, `SmokeNow` denotes whether they still smoke. The code below drops NAs in the response variable. The plotting is then initiated using `ggplot()`. Inside `aes()`, we select the response variable with `y = SmokeNow` and the continuous explanatory variable with `x = Age`. Finally, violin plots are called using `geom_violin()`.
-
-The plot suggests that on average, participants of younger age are still smoking and participants of older age have given up smoking. We can now proceed with fitting the logistic regression model. 
 
 
 ~~~
@@ -33,6 +31,8 @@ dat %>%
 {: .language-r}
 
 <img src="../fig/rmd-03-explore SmokeNow_Age-1.png" title="plot of chunk explore SmokeNow_Age" alt="plot of chunk explore SmokeNow_Age" width="612" style="display: block; margin: auto;" />
+
+The plot suggests that on average, participants of younger age are still smoking and participants of older age have given up smoking. After the exercise, we can proceed with fitting the logistic regression model. 
 
 > ## Exercise  
 > You have been asked to model the relationship between 
@@ -158,7 +158,7 @@ Age                     0.947    0.943    0.952   -21.771   0.000
 {: .output}
 
 The model therefore predicts that the odds of success will be multiplied by
-$0.947$ for every one-unit increase in $x_1$
+$0.947$ for every one-unit increase in $x_1$.
 
 > ## Exercise  
 > 1. Using the `glm()` command, fit a logistic regression model
@@ -173,7 +173,7 @@ $0.947$ for every one-unit increase in $x_1$
 > to differ, on average, for a one-unit difference in `FEV1`?  
 > C) Given these values and the names of the response and explanatory
 > variables, how can the general equation $\text{logit}(E(y)) = \beta_0 + \beta_1 \times x_1$ be adapted to represent the model?  
-> D) By how much is $\frac{\text{Pr}(\text{PhysActive})}{\text{Pr}(\text{PhysActive})} = \text{No}$ expected to be multiplied for a one-unit increase in `FEV1?`
+> D) By how much is $\frac{\text{Pr}(\text{PhysActive} = \text{Yes})}{\text{Pr}(\text{PhysActive} = \text{No})}$ expected to be multiplied for a one-unit increase in `FEV1?`
 >
 > > ## Solution
 > > 
@@ -270,11 +270,13 @@ with `pred = Age`. To aid interpretation of the model, we include the original d
 with `plot.points = TRUE`. Recall that our data is binary, so the data points are exclusively
 $0$s and $1$s. To avoid overlapping points becoming hard to interpret, we add jitter using
 `jitter = c(0.1, 0.05)` and opacity using `point.alpha = 0.1`. 
+We also change the y-axis label to "Pr(SmokeNow = Yes)" using `ylab()`. 
 
 
 ~~~
 effect_plot(SmokeNow_Age, pred = Age, plot.points = TRUE,
-            jitter = c(0.1, 0.05), point.alpha = 0.1)
+            jitter = c(0.1, 0.05), point.alpha = 0.1) +
+  ylab("Pr(SmokeNow = Yes)")
 ~~~
 {: .language-r}
 
