@@ -7,7 +7,11 @@ objectives:
   - "Calculate predictions in terms of the log odds, the odds and the probability of success from a logistic regression model using parameter estimates given by the model output."
   - "Use the `make_predictions()` function from the `jtools` package to generate predictions from a logistic regression model in terms of the log odds, the odds and the probability of success."
 keypoints:
+  - "Predictions of the log odds, the odds and the probability of success can be manually calculated using the model's equation."
+  - "Predictions of the log odds, the odds and the probability of success alongside 95% CIs can be obtained using the `make_predictions()` function."
 questions:
+  - "How can predictions from a logistic regression model be calculated manually?"
+  - "How can predictions from a logistic regression model be calculated in R?"
 teaching: 10
 execises: 10
 ---
@@ -18,6 +22,8 @@ execises: 10
 
 As with the linear regression models, the logistic regression model allows us to make predictions. First we will calculate predictions of the log odds, the odds and the probability of success using the model equations. Then we will see how R can calculate predictions for us using the `predict()` function.
 
+
+## Calculating predictions manually
 Let us use the `SmokeNow_Age` model from the previous episode. The equation for this model in terms of the log odds was: 
 
 $$\text{logit}(E(\text{SmokeNow})) = 2.607 - 0.054 \times \text{Age}.$$
@@ -73,6 +79,8 @@ physically active than not.
 > {: .solution}
 {: .challenge}
 
+
+## Calculating predictions using `make_predictions()`
 Using the `make_predictions()` function brings two advantages. First, when calculating multiple predictions, we are saved the effort of inserting multiple values into our model manually and doing the calculations. Secondly, `make_predictions()` returns 95% confidence intervals around the predictions, giving us a sense of the uncertainty around the predictions. 
 
 To use `make_predictions()`, we need to create a `tibble` with the explanatory variable values for which we wish to have mean predictions from the model. We do this using the `tibble()` function. Note that the column name must correspond to the name of the explanatory variable in the model, i.e. `Age`. In the code below, we create a `tibble` with the values 30, 50 and 70. We then provide `predict()` with this `tibble`, alongside the model from which we wish to have predictions.
