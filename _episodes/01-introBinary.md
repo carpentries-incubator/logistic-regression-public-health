@@ -24,24 +24,28 @@ execises: 10
 
 
 In this lesson we will work with binary outcome variables. 
-That is, variables which can take on two values.
-These could be $0$ vs. $1$, "success" vs. "failure" or "yes" vs. "no".
+That is, variables which can take on one of two possible values.
+These could be $0$ or $1$, "success" or "failure" or "yes" or "no".
 
 ## Probabilities and expectation
 
 By analysing binary data, we can estimate the probabilities of success and failure.
-For example, we may be interested in the probability that individuals between the 
-ages of 55 and 66, who have once been smokers, are still smoking during the NHANES
-study. 
+For example, if we consider individuals between the ages of 55 and 66, 
+we may be interested in the probability that individuals who have once smoked, 
+are still smoking during the NHANES study.  
 
 The probability of success is estimated by the proportion of individuals who are
 still smoking. Similarly, the probability of failure is estimated by the 
-proportion of individuals who are no longer smoking.
+proportion of individuals who are no longer smoking. In this context, we would consider
+an individual that still smokes a "success" and an individual that no longer
+smokes a "failure".
 
-We calculate these values in RStudio by removing empty rows with `drop_na()`,
-subsetting individuals of the appropriate age using `filter()`, counting
-the number of individuals in each of the two levels of `SmokeNow` using
-`count()` and calculating proportions by dividing the counts by the total number
+We calculate these values in RStudio through four operations:
+1. Removing empty rows with `drop_na()`;
+2. Subsetting individuals of the appropriate age using `filter()`;
+3. Counting the number of individuals in each of the two levels of `SmokeNow` using
+`count()`;
+4. Calculating proportions by dividing the counts by the total number
 of non-NA observations using `mutate()`. 
 
 
@@ -158,7 +162,14 @@ As we can see in the plot below, a log odds greater than zero is associated with
 a probability of success greater than 0.5. Likewise, a log odds smaller than 0 
 is associated with a probability of success less than 0.5. 
 
-<img src="../fig/rmd-01-plot log odds vs expectation-1.png" title="plot of chunk plot log odds vs expectation" alt="plot of chunk plot log odds vs expectation" width="612" style="display: block; margin: auto;" />
+
+~~~
+Error: <text>:6:13: unexpected string constant
+5:   geom_line() +
+6:   xlab(TeX(r'($E(y)$)'
+               ^
+~~~
+{: .error}
 
 The interpretation of the probabilities, odds and log odds is summarised in the
 table below:
