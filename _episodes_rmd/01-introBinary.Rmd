@@ -21,8 +21,7 @@ execises: 10
 ---
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
-# source("../bin/obtain_data.R")
-load("../bin/data.RData")
+source("../bin/obtain_data.R")
 knitr_fig_path("01-")
 library(dplyr)
 library(tidyr)
@@ -31,24 +30,28 @@ library(latex2exp)
 ```
 
 In this lesson we will work with binary outcome variables. 
-That is, variables which can take on two values.
-These could be $0$ vs. $1$, "success" vs. "failure" or "yes" vs. "no".
+That is, variables which can take on one of two possible values.
+These could be $0$ or $1$, "success" or "failure" or "yes" or "no".
 
 ## Probabilities and expectation
 
 By analysing binary data, we can estimate the probabilities of success and failure.
-For example, we may be interested in the probability that individuals between the 
-ages of 55 and 66, who have once been smokers, are still smoking during the NHANES
-study. 
+For example, if we consider individuals between the ages of 55 and 66, 
+we may be interested in the probability that individuals who have once smoked, 
+are still smoking during the NHANES study.  
 
 The probability of success is estimated by the proportion of individuals who are
 still smoking. Similarly, the probability of failure is estimated by the 
-proportion of individuals who are no longer smoking.
+proportion of individuals who are no longer smoking. In this context, we would consider
+an individual that still smokes a "success" and an individual that no longer
+smokes a "failure".
 
-We calculate these values in RStudio by removing empty rows with `drop_na()`,
-subsetting individuals of the appropriate age using `filter()`, counting
-the number of individuals in each of the two levels of `SmokeNow` using
-`count()` and calculating proportions by dividing the counts by the total number
+We calculate these values in RStudio through four operations:
+1. Removing empty rows with `drop_na()`;
+2. Subsetting individuals of the appropriate age using `filter()`;
+3. Counting the number of individuals in each of the two levels of `SmokeNow` using
+`count()`;
+4. Calculating proportions by dividing the counts by the total number
 of non-NA observations using `mutate()`. 
 
 
@@ -65,7 +68,8 @@ of failure is estimated as $0.62$. In mathematical notation:
 $\text{Pr}(\text{SmokeNow} = \text{Yes}) = 0.38$ and $\text{Pr}(\text{SmokeNow} = \text{No}) = 0.62$.
 
 You may have noticed that the probabilities of success and failure add to 1. 
-This is true as a general rule. Therefore, the probability of success equals
+This is true because there are only two possible outcomes for a binary explanatory variable.
+Therefore, the probability of success equals
 1 minus the probability of failure: $\text{Pr}(\text{Success}) = 1 - \text{Pr}(\text{Failure})$.
 
 In the linear regression lessons, we modelled the *expectation* of the outcome 
