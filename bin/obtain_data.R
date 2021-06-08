@@ -61,3 +61,5 @@ dat <- nhanes_load_data(c("CBC_F"), "2009-2010") %>%
   rename(ID = SEQN)
 
 rm(prop)
+
+#save(dat, file = "data.RData")
