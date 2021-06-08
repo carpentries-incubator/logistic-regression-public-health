@@ -17,10 +17,6 @@ library(boot)
 To obtain the data for this lesson, run the following code:
 
 ~~~
-library(NHANES)
-library(RNHANES)
-library(dplyr)
-
 # proportions representing a simple random sample
 prop <- as.numeric(table(NHANES$Race1)/nrow(NHANES))
 
@@ -55,7 +51,9 @@ dat <- NHANESraw %>%
             TVHrsDay, 
             CompHrsDay,
             TVHrsDayChild,
-            CompHrsDayChild)) # remove data which was only recorded for one out of two survey rounds
+            CompHrsDayChild)) %>% # remove data which was only recorded for 
+                                  # one out of two survey rounds
+ungroup(Race1)
 
 # Add FEV1 variable
 dat <- nhanes_load_data(c("SPX_F"), "2009-2010") %>%
@@ -78,6 +76,7 @@ dat <- nhanes_load_data(c("CBC_F"), "2009-2010") %>%
   rename(ID = SEQN)
 
 rm(prop)
+
 
 
 

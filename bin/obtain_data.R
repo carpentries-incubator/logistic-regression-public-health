@@ -36,7 +36,9 @@ dat <- NHANESraw %>%
             TVHrsDay, 
             CompHrsDay,
             TVHrsDayChild,
-            CompHrsDayChild)) # remove data which was only recorded for one out of two survey rounds
+            CompHrsDayChild)) %>% # remove data which was only recorded for 
+                                  # one out of two survey rounds
+ungroup(Race1)
 
 # Add FEV1 variable
 dat <- nhanes_load_data(c("SPX_F"), "2009-2010") %>%
