@@ -21,7 +21,8 @@ execises: 10
 ---
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
-source("../bin/obtain_data.R")
+#source("../bin/obtain_data.R")
+load("../bin/data.RData")
 knitr_fig_path("01-")
 library(dplyr)
 library(tidyr)
