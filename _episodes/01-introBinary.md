@@ -24,7 +24,7 @@ execises: 10
 
 
 In this lesson we will work with binary outcome variables. 
-That is, variables which can take on one of two possible values.
+That is, variables which can take one of two possible values.
 These could be $0$ or $1$, "success" or "failure" or "yes" or "no".
 
 ## Probabilities and expectation
@@ -73,7 +73,7 @@ of failure is estimated as $0.62$. In mathematical notation:
 $\text{Pr}(\text{SmokeNow} = \text{Yes}) = 0.38$ and $\text{Pr}(\text{SmokeNow} = \text{No}) = 0.62$.
 
 You may have noticed that the probabilities of success and failure add to 1. 
-This is true because there are only two possible outcomes for a binary explanatory variable.
+This is true because there are only two possible outcomes for a binary response variable.
 Therefore, the probability of success equals
 1 minus the probability of failure: $\text{Pr}(\text{Success}) = 1 - \text{Pr}(\text{Failure})$.
 
@@ -154,12 +154,10 @@ Therefore, an odds greater than $1$ indicates that the probability of success
 is greater than the probability of failure. For example, an odds of 1.5 indicates that success is 1.5 times as likely as failure. An odds less than $1$ indicates that
 the probability of failure is greater than the probability of success. For example, an odds of 0.75 indicates that success is 0.75 times as likely as failure. 
 
-As we will see in the next episode, binary outcome variables can be modelled through
-the *log odds*, i.e.:
-
-$$\text{log}\left(\frac{E(y)}{1-E(y)}\right)$$
-
-As we can see in the plot below, a log odds greater than zero is associated with 
+Binary outcome variables can be modeled through
+the *log odds*. We can see the relationship between the log odds and the expectation 
+in the plot below. As we can see in the plot, a log odds greater than zero 
+is associated with 
 a probability of success greater than 0.5. Likewise, a log odds smaller than 0 
 is associated with a probability of success less than 0.5. 
 
@@ -171,6 +169,13 @@ Error: <text>:6:13: unexpected string constant
                ^
 ~~~
 {: .error}
+
+In mathematical notation, the log odds is defined as:
+
+$$\text{log}\left(\frac{E(y)}{1-E(y)}\right)$$
+
+
+
 
 The interpretation of the probabilities, odds and log odds is summarised in the
 table below:
@@ -195,8 +200,8 @@ dat %>%
   count(SmokeNow) %>%
   mutate(prop = n/sum(n)) %>%
   filter(SmokeNow == "Yes") %>%
-  summarise(odds = prop/(1-prop),
-    log_odds = log(prop/(1-prop)))
+  summarise(odds = prop/(1 - prop),
+    log_odds = log(prop/(1 - prop)))
 ~~~
 {: .language-r}
 
@@ -225,8 +230,8 @@ dat %>%
 > >   count(PhysActive) %>%
 > >   mutate(prop = n/sum(n)) %>%
 > >   filter(PhysActive == "Yes") %>%
-> >   summarise(odds = prop/(1-prop),
-> >     log_odds = log(prop/(1-prop)))
+> >   summarise(odds = prop/(1 - prop),
+> >     log_odds = log(prop/(1 - prop)))
 > > ~~~
 > > {: .language-r}
 > > 
