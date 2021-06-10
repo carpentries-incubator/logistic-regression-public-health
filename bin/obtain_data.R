@@ -62,4 +62,4 @@ dat <- nhanes_load_data(c("CBC_F"), "2009-2010") %>%
 
 rm(prop)
 
-#save(dat, file = "data.RData")
+#save(dat, file = "../bin/data.RData")
