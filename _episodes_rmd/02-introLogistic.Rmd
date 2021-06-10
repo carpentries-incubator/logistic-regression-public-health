@@ -74,7 +74,11 @@ $$
 \text{log}\left(\frac{E(y)}{1-E(y)}\right) = \beta_0 + \beta_1 \times x_1.
 $$
 
-The right-hand side of the equation has the same form as what we encountered in the simple linear regression lesson. So we will first interpret the left-hand side of the equation. The outcome variable is denoted by $y$. Logistic regression models the log odds of $E(y)$, which we encountered in the previous episode. 
+The right-hand side of the equation has the same form as that for simple
+linear regression. So we will first interpret the left-hand side of the equation. 
+The outcome variable is denoted by $y$. 
+Logistic regression models the log odds of $E(y)$, 
+which we encountered in the previous episode. 
 
 The log odds can be denoted by $\text{logit()}$ for simplicity, giving us the following equation:
 
@@ -96,7 +100,7 @@ This leads us to interpreting $\text{logit}(E(y))$ as the *log odds* of $y=1$
 In the logistic regression model equation, the expectation of $y$ is a function of $\beta_0$ and $\beta_1 \times x_1$. The intercept is denoted by $\beta_0$ - this is the log odds when the explanatory variable, $x_1$, equals 0. The effect of our explanatory variable is denoted by $\beta_1$ - for every one-unit increase in $x_1$, the log odds changes by $\beta_1$.
 
 
-Before fitting the model, we have access to $y$ and $x_1$ values for each observation in our data. For example, we may want to model the relationship between diabetes and BMI. $y$ would represent diabetes ($y=1$ if a participant has diabetes and $y=0$ otherwise). $x_1$ would represent BMI. After we fit the model, R will return to us values of $\beta_0$ and $\beta_1$ - these are *estimated* using our data. 
+Before fitting the model, we have $y$ and $x_1$ values for each observation in our data. For example, suppose we want to model the relationship between diabetes and BMI. $y$ would represent diabetes ($y=1$ if a participant has diabetes and $y=0$ otherwise). $x_1$ would represent BMI. After we fit the model, R will return to us values of $\beta_0$ and $\beta_1$ - these are *estimated* using our data. 
 
 
 
@@ -200,7 +204,10 @@ We will exemplify this in the challenge below.
 > to $x=7$?
 >  
 > > ## Solution
-> > A) $e^{1.2} = 3.32$  
+> > A) $e^{1.2} = 3.32.$ We can obtain this in R as follows:
+> > ```{r exp example}
+> > exp(1.2)
+> > ```
 > > B) $\frac{\text{Pr}(y=1|x=3)}{\text{Pr}(y=0|x=3)} = 0.4 \times 3.32 = 1.328$  
 > > C) $\frac{\text{Pr}(y=1|x=7)}{\text{Pr}(y=0|x=7)} = 0.9 \times 3.32 = 2.988$  
 > > D) $1.328 - 0.4 = 0.928$ and $2.988 - 0.9 = 2.088$. So the second change is greater 
