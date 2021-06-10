@@ -34,53 +34,59 @@ PhysActive_FEV1 <- dat %>%
  glm(formula = PhysActive ~ FEV1, family = "binomial")
 ```
 
-As with the linear regression models, the logistic regression model allows us to make predictions. First we will calculate predictions of the log odds, the odds and the probability of success using the model equations. Then we will see how R can calculate predictions for us using the `predict()` function.
+As with the linear regression models, the logistic regression model allows us to make predictions. First we will calculate predictions of the log odds, the odds and the probability of success using the model equations. Then we will see how R can calculate predictions for us using the `make_predictions()` function.
 
 
 ## Calculating predictions manually
 Let us use the `SmokeNow_Age` model from the previous episode. The equation for this model in terms of the log odds was: 
 
-$$\text{logit}(E(\text{SmokeNow})) = 2.607 - 0.054 \times \text{Age}.$$
+$$\text{logit}(E(\text{SmokeNow})) = 2.60651 − 0.05423 \times \text{Age}.$$
 
 Therefore, for a 30-year old individual, the model predicts a log odds of 
 
-$$\text{logit}(E(\text{SmokeNow})) = 2.607 - 0.054 \times 30 = 0.987.$$ 
+$$\text{logit}(E(\text{SmokeNow})) = 2.60651 − 0.05423 \times 30 = 0.97961.$$ 
 
 Since the odds are more interpretable than the log odds, we can convert our log odds prediction to the odds scale. We do so by exponentiation the log odds:
 
-$$\frac{E(\text{SmokeNow})}{1-E(\text{SmokeNow})} = e^{0.987} = 2.68.$$
+$$\frac{E(\text{SmokeNow})}{1-E(\text{SmokeNow})} = e^{0.97961} = 2.663.$$
 
-Therefore, the model predicts that individuals that have been smokers, are 2.68 as likely to still be smokers at the age of 30 than not. 
+Therefore, the model predicts that individuals that have been smokers, are 2.663 as likely to still be smokers at the age of 30 than not. 
 
 Recall that the model could also be expressed in terms of the probability of "success": 
 
-$$\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{logit}^{-1}(2.607 - 0.054 \times \text{Age}).$$
+$$\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{logit}^{-1}(2.60651 − 0.05423 \times \text{Age}).$$
 
 In R, we can calculate the inverse logit using the `inv.logit()` function from the `boot` package. Therefore, for a 30-year old individual, the model predicts a probability of $\text{SmokeNow} = \text{Yes}$:
 
-```{r inv.logit SmokeNow_Age example}
-inv.logit(2.607 - 0.054 * 30)
+```{r invlogit SmokeNow_Age example}
+inv.logit(2.60651 - 0.05423 * 30)
 ```
 
-Or in mathematical notation: $\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{logit}^{-1}(2.607 - 0.054 \times 30) = 0.728.$
+Or in mathematical notation: $\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{logit}^{-1}(2.60651 − 0.05423 \times 30) = 0.727.$
 
 >## Exercise
 >Given the `summ` output from our `PhysActive_FEV1` model, 
 >the model can be described as 
-> $$\text{logit}(E(\text{PhysActive})) = -1.1860 + 0.00046 \times \text{FEV1}.$$   
+> $$\text{logit}(E(\text{PhysActive})) = -1.18602 + 0.00046 \times \text{FEV1}.$$   
 >A) Calculate the log odds of physical activity predicted by the model for an
 >individual with an FEV1 of 3000.  
 >B) Calculate the odds of physical activity predicted by the model for an 
-> individual with an FEV1 of 3000. How many times is the individual more likely
-> to be physically active?  
+> individual with an FEV1 of 3000. How many more times is the individual likely
+> to be physically active than not?  
 >C) Using the `inv.logit()` function from the package `boot`, calculate the
 >probability of an individual with an FEV1 of 3000 being physically active.
 > 
 > > ## Solution
-> > A) $\text{logit}(E(\text{PhysActive}) = -1.186 + 0.00046 \times 3000 = 0.194.$  
+> > A) $\text{logit}(E(\text{PhysActive}) = -1.18602 + 0.00046 \times 3000 = 0.194.$  
 > > B) $e^{0.194} = 1.21$, so the individual is 1.21 times more likely to be
-physically active than not.  
-> > C) $\text{Pr}(\text{PhysActive}) = {logit}^{-1}(-1.186 + 0.00046 \times 3000) = 0.548$
+physically active than not. This can be calculated in R as follows:
+> > ```{r exp 0.194}
+> > exp(0.194)
+> > ```  
+> > C) $\text{Pr}(\text{PhysActive}) = {logit}^{-1}(-1.18602 + 0.00046 \times 3000) = 0.548.$ This can be calculated in R as follows:
+> > ```{r inv.log 0.194}
+> > inv.logit(-1.18602 + 0.00046 * 3000)
+> > ```
 > {: .solution}
 {: .challenge}
 
@@ -88,7 +94,7 @@ physically active than not.
 ## Calculating predictions using `make_predictions()`
 Using the `make_predictions()` function brings two advantages. First, when calculating multiple predictions, we are saved the effort of inserting multiple values into our model manually and doing the calculations. Secondly, `make_predictions()` returns 95% confidence intervals around the predictions, giving us a sense of the uncertainty around the predictions. 
 
-To use `make_predictions()`, we need to create a `tibble` with the explanatory variable values for which we wish to have mean predictions from the model. We do this using the `tibble()` function. Note that the column name must correspond to the name of the explanatory variable in the model, i.e. `Age`. In the code below, we create a `tibble` with the values 30, 50 and 70. We then provide `predict()` with this `tibble`, alongside the model from which we wish to have predictions.
+To use `make_predictions()`, we need to create a `tibble` with the explanatory variable values for which we wish to have mean predictions from the model. We do this using the `tibble()` function. Note that the column name must correspond to the name of the explanatory variable in the model, i.e. `Age`. In the code below, we create a `tibble` with the values 30, 50 and 70. We then provide `make_predictions()` with this `tibble`, alongside the model from which we wish to have predictions.
 
 Recall that we can calculate predictions on the log odds or the probability scale. To obtain predictions on the log odds scale, we include `outcome.scale = "link"` in our `make_predicitons()` command. For example:
 
@@ -115,8 +121,8 @@ From the output we can see that the model predicts a probability of still smokin
 > A) Obtain the log odds of the expectation of physical activity for individuals 
 > with an FEV1 of 2000, 3000 or 4000. Ensure that your predictions include
 > confidence intervals.  
-> B) Exponentiate the log odds at an FEV1 of 4000. How many times more likely
-> is an individual with an FEV1 of 4000 predicted to be physically active?  
+> B) Exponentiate the log odds at an FEV1 of 4000. How many more times 
+> is an individual likely to be physically active than not with an FEV1 of 4000?  
 > C) Obtain the probabilities of individuals with an FEV1 of 2000, 3000 or 4000
 > being physically active. Ensure that your predictions include 
 > confidence intervals.

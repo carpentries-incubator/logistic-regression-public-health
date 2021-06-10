@@ -45,7 +45,7 @@ Let us take response variable `SmokeNow` and the continuous explanatory variable
 ```{r explore SmokeNow_Age}
 dat %>%
   drop_na(SmokeNow) %>%
-  ggplot(aes(y = SmokeNow, x = Age)) +
+  ggplot(aes(x = Age, y = SmokeNow)) +
   geom_violin() 
 ```
 
@@ -89,12 +89,12 @@ $$\text{logit}(E(y)) = \beta_0 + \beta_1 \times x_1.$$
 Recall that $\beta_0$ estimates the log odds when $x_1 = 0$ and $\beta_1$ estimates the difference in the log odds associated with a one-unit difference in $x_1$. Using `summ()`, we can obtain estimates for $\beta_0$ and $\beta_1$:
 
 ```{r summ SmokeNow_Age}
-summ(SmokeNow_Age, digits = 3)
+summ(SmokeNow_Age, digits = 5)
 ```
 
 The equation therefore becomes:
 
-$$\text{logit}(E(\text{SmokeNow})) = 2.607 - 0.054 \times \text{Age}.$$
+$$\text{logit}(E(\text{SmokeNow})) = 2.60651 - 0.05423 \times \text{Age}.$$
 
 Alternatively, we can express the model equation in terms of the probability of "success": 
 
@@ -102,7 +102,7 @@ $$\text{Pr}(y = 1) = \text{logit}^{-1}(\beta_0 + \beta_1 \times x_1).$$
 
 In this example, $\text{SmokeNow} = \text{Yes}$ is "success". The equation therefore becomes:
 
-$$\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{logit}^{-1}(2.607 - 0.054 \times \text{Age}).$$
+$$\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{logit}^{-1}(2.60651 - 0.05423 \times \text{Age}).$$
 
 Recall that the odds of success, 
 $\frac{\text{Pr}(\text{SmokeNow} = \text{Yes})}{\text{Pr}(\text{SmokeNow} = \text{No})}$, 
@@ -110,11 +110,11 @@ is multiplied by a factor of $e^{\beta_1}$ for every one-unit increase in $x_1$.
 We can find this factor using `summ()`, including `exp = TRUE`:
 
 ```{r summ with exp SmokeNow_Age}
-summ(SmokeNow_Age, digits = 3, exp = TRUE)
+summ(SmokeNow_Age, digits = 5, exp = TRUE)
 ```
 
 The model therefore predicts that the odds of success will be multiplied by
-$0.947$ for every one-unit increase in $x_1$.
+$0.94721$ for every one-unit increase in $x_1$.
 
 > ## Exercise  
 > 1. Using the `glm()` command, fit a logistic regression model
@@ -144,10 +144,10 @@ $0.947$ for every one-unit increase in $x_1$.
 > > summ(PhysActive_FEV1, digits = 5)
 > > ```
 > > 
-> > A) -1.1860     
+> > A) -1.18602     
 > > B) The log odds of physical activity is expected 
-> > to be 0.0005 for every unit increase in `FEV1`.      
-> > C) $\text{logit}(E(\text{PhysActive})) = -1.186 + 0.00046 \times \text{FEV1}$.  
+> > to be 0.00046 for every unit increase in `FEV1`.      
+> > C) $\text{logit}(E(\text{PhysActive})) = -1.18602 + 0.00046 \times \text{FEV1}$.  
 > > 
 > > To answer question D, we add `exp = TRUE` to the `summ()`
 > > command:

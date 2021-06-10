@@ -38,7 +38,7 @@ Let us take response variable `SmokeNow` and the continuous explanatory variable
 ~~~
 dat %>%
   drop_na(SmokeNow) %>%
-  ggplot(aes(y = SmokeNow, x = Age)) +
+  ggplot(aes(x = Age, y = SmokeNow)) +
   geom_violin() 
 ~~~
 {: .language-r}
@@ -92,7 +92,7 @@ Recall that $\beta_0$ estimates the log odds when $x_1 = 0$ and $\beta_1$ estima
 
 
 ~~~
-summ(SmokeNow_Age, digits = 3)
+summ(SmokeNow_Age, digits = 5)
 ~~~
 {: .language-r}
 
@@ -107,24 +107,24 @@ Type: Generalized linear model
   Link function: logit 
 
 MODEL FIT:
-χ²(1) = 574.291, p = 0.000
-Pseudo-R² (Cragg-Uhler) = 0.232
-Pseudo-R² (McFadden) = 0.139
-AIC = 3575.264, BIC = 3587.281 
+χ²(1) = 574.29107, p = 0.00000
+Pseudo-R² (Cragg-Uhler) = 0.23240
+Pseudo-R² (McFadden) = 0.13853
+AIC = 3575.26400, BIC = 3587.28139 
 
 Standard errors: MLE
-----------------------------------------------------
-                      Est.    S.E.    z val.       p
------------------ -------- ------- --------- -------
-(Intercept)          2.607   0.132    19.684   0.000
-Age                 -0.054   0.002   -21.771   0.000
-----------------------------------------------------
+------------------------------------------------------------
+                        Est.      S.E.      z val.         p
+----------------- ---------- --------- ----------- ---------
+(Intercept)          2.60651   0.13242    19.68364   0.00000
+Age                 -0.05423   0.00249   -21.77087   0.00000
+------------------------------------------------------------
 ~~~
 {: .output}
 
 The equation therefore becomes:
 
-$$\text{logit}(E(\text{SmokeNow})) = 2.607 - 0.054 \times \text{Age}.$$
+$$\text{logit}(E(\text{SmokeNow})) = 2.60651 - 0.05423 \times \text{Age}.$$
 
 Alternatively, we can express the model equation in terms of the probability of "success": 
 
@@ -132,7 +132,7 @@ $$\text{Pr}(y = 1) = \text{logit}^{-1}(\beta_0 + \beta_1 \times x_1).$$
 
 In this example, $\text{SmokeNow} = \text{Yes}$ is "success". The equation therefore becomes:
 
-$$\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{logit}^{-1}(2.607 - 0.054 \times \text{Age}).$$
+$$\text{Pr}(\text{SmokeNow} = \text{Yes}) = \text{logit}^{-1}(2.60651 - 0.05423 \times \text{Age}).$$
 
 Recall that the odds of success, 
 $\frac{\text{Pr}(\text{SmokeNow} = \text{Yes})}{\text{Pr}(\text{SmokeNow} = \text{No})}$, 
@@ -141,7 +141,7 @@ We can find this factor using `summ()`, including `exp = TRUE`:
 
 
 ~~~
-summ(SmokeNow_Age, digits = 3, exp = TRUE)
+summ(SmokeNow_Age, digits = 5, exp = TRUE)
 ~~~
 {: .language-r}
 
@@ -156,23 +156,23 @@ Type: Generalized linear model
   Link function: logit 
 
 MODEL FIT:
-χ²(1) = 574.291, p = 0.000
-Pseudo-R² (Cragg-Uhler) = 0.232
-Pseudo-R² (McFadden) = 0.139
-AIC = 3575.264, BIC = 3587.281 
+χ²(1) = 574.29107, p = 0.00000
+Pseudo-R² (Cragg-Uhler) = 0.23240
+Pseudo-R² (McFadden) = 0.13853
+AIC = 3575.26400, BIC = 3587.28139 
 
 Standard errors: MLE
------------------------------------------------------------------
-                    exp(Est.)     2.5%    97.5%    z val.       p
------------------ ----------- -------- -------- --------- -------
-(Intercept)            13.552   10.454   17.567    19.684   0.000
-Age                     0.947    0.943    0.952   -21.771   0.000
------------------------------------------------------------------
+-------------------------------------------------------------------------
+                    exp(Est.)       2.5%      97.5%      z val.         p
+----------------- ----------- ---------- ---------- ----------- ---------
+(Intercept)          13.55161   10.45382   17.56738    19.68364   0.00000
+Age                   0.94721    0.94260    0.95185   -21.77087   0.00000
+-------------------------------------------------------------------------
 ~~~
 {: .output}
 
 The model therefore predicts that the odds of success will be multiplied by
-$0.947$ for every one-unit increase in $x_1$.
+$0.94721$ for every one-unit increase in $x_1$.
 
 > ## Exercise  
 > 1. Using the `glm()` command, fit a logistic regression model
@@ -230,10 +230,10 @@ $0.947$ for every one-unit increase in $x_1$.
 > > ~~~
 > > {: .output}
 > > 
-> > A) -1.1860     
+> > A) -1.18602     
 > > B) The log odds of physical activity is expected 
-> > to be 0.0005 for every unit increase in `FEV1`.      
-> > C) $\text{logit}(E(\text{PhysActive})) = -1.186 + 0.00046 \times \text{FEV1}$.  
+> > to be 0.00046 for every unit increase in `FEV1`.      
+> > C) $\text{logit}(E(\text{PhysActive})) = -1.18602 + 0.00046 \times \text{FEV1}$.  
 > > 
 > > To answer question D, we add `exp = TRUE` to the `summ()`
 > > command:
