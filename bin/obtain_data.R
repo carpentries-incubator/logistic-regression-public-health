@@ -19,10 +19,10 @@ dat <- NHANESraw %>%
   group_by(Race1) %>%
   sample_n(10000 * weight) %>% # sample from each according to prop to obtain 10000 obvs in total
   rename(Sex = Gender) %>%
-  select(-c(weight, 
+  dplyr::select(-c(weight, 
             WTINT2YR, WTMEC2YR, 
             SDMVPSU, SDMVSTRA)) %>% # remove weighting columns
-  select(-c(SurveyYr, HHIncomeMid,
+  dplyr::select(-c(SurveyYr, HHIncomeMid,
             Length, HeadCirc,
             BMICatUnder20yrs,
             BPSys1, BPSys2,
@@ -31,7 +31,7 @@ dat <- NHANESraw %>%
             UrineVol2,
             UrineFlow2,
             PregnantNow)) %>% # remove variables which will not be used
-  select(-c(AgeMonths, Race3, 
+  dplyr::select(-c(Race3, 
             Testosterone,
             TVHrsDay, 
             CompHrsDay,
@@ -42,9 +42,9 @@ ungroup(Race1)
 
 # Add FEV1 variable
 dat <- nhanes_load_data(c("SPX_F"), "2009-2010") %>%
-  select(SEQN, SPXNFEV1) %>%
+  dplyr::select(SEQN, SPXNFEV1) %>%
   bind_rows(nhanes_load_data(c("SPX_G"), "2011-2012") %>% 
-              select(SEQN, SPXNFEV1)) %>%
+              dplyr::select(SEQN, SPXNFEV1)) %>%
   filter(SEQN %in% dat$ID) %>%
   rename(FEV1 = SPXNFEV1) %>%
   right_join(dat, by = c("SEQN" = "ID")) %>%
@@ -52,9 +52,9 @@ dat <- nhanes_load_data(c("SPX_F"), "2009-2010") %>%
 
 # Add LBXHGB variable (Blood hemoglobin, g/dL)
 dat <- nhanes_load_data(c("CBC_F"), "2009-2010") %>%
-  select(SEQN, LBXHGB) %>%
+  dplyr::select(SEQN, LBXHGB) %>%
   bind_rows(nhanes_load_data(c("CBC_G"), "2011-2012") %>% 
-              select(SEQN, LBXHGB)) %>%
+              dplyr::select(SEQN, LBXHGB)) %>%
   filter(SEQN %in% dat$ID) %>%
   rename(Hemoglobin = LBXHGB) %>%
   right_join(dat, by = c("SEQN" = "ID")) %>%
