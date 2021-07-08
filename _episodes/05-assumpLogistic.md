@@ -20,6 +20,107 @@ In this episode we will check the fit and assumptions of logistic regression mod
 
 ## Assessing model fit by plotting binned residuals
 
+
+~~~
+library(arm)
+~~~
+{: .language-r}
+
+
+
+~~~
+Loading required package: MASS
+~~~
+{: .output}
+
+
+
+~~~
+
+Attaching package: 'MASS'
+~~~
+{: .output}
+
+
+
+~~~
+The following object is masked from 'package:dplyr':
+
+    select
+~~~
+{: .output}
+
+
+
+~~~
+Loading required package: Matrix
+~~~
+{: .output}
+
+
+
+~~~
+
+Attaching package: 'Matrix'
+~~~
+{: .output}
+
+
+
+~~~
+The following objects are masked from 'package:tidyr':
+
+    expand, pack, unpack
+~~~
+{: .output}
+
+
+
+~~~
+Loading required package: lme4
+~~~
+{: .output}
+
+
+
+~~~
+
+arm (Version 1.11-2, built: 2020-7-27)
+~~~
+{: .output}
+
+
+
+~~~
+Working directory is /mnt/c/Users/elh605/demonstration/dataCarp/logistic-regression-public-health/_episodes_rmd
+~~~
+{: .output}
+
+
+
+~~~
+SmokeNow_Age <- dat %>%
+  glm(formula = SmokeNow ~ AgeMonths,  family = "binomial")
+
+binnedplot(x = predict(SmokeNow_Age),
+           y = resid(SmokeNow_Age)) 
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-05-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
+
+~~~
+PhysActive_FEV1 <- dat %>%
+ drop_na(PhysActive) %>%
+ glm(formula = PhysActive ~ FEV1, family = "binomial")
+
+binnedplot(x = predict(PhysActive_FEV1),
+           y = resid(PhysActive_FEV1)) 
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-05-unnamed-chunk-2-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
+
 ## Assessing the assumptions of the logistic regression model
 The assumptions underlying the logistic regression model are similar to those
 of the simple linear regression model. The key similarities and differences are:  

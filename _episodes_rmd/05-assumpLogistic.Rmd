@@ -14,7 +14,10 @@ execises: 10
 source("../bin/chunk-options.R")
 #source("../bin/obtain_data.R")
 load("../bin/data.RData")
-knitr_fig_path("03-")
+knitr_fig_path("05-")
+library(dplyr)
+library(ggplot2)
+library(tidyr)
 ```
 
 In this episode we will check the fit and assumptions of logistic regression models. We will use error rates as a measure of model fit. We will also learn to assess the four logistic regression assumptions.
@@ -22,6 +25,24 @@ In this episode we will check the fit and assumptions of logistic regression mod
 ## Error rates as a measure of model fit
 
 ## Assessing model fit by plotting binned residuals
+
+```{r}
+library(arm)
+
+SmokeNow_Age <- dat %>%
+  glm(formula = SmokeNow ~ AgeMonths,  family = "binomial")
+
+binnedplot(x = predict(SmokeNow_Age),
+           y = resid(SmokeNow_Age)) 
+
+PhysActive_FEV1 <- dat %>%
+ drop_na(PhysActive) %>%
+ glm(formula = PhysActive ~ FEV1, family = "binomial")
+
+binnedplot(x = predict(PhysActive_FEV1),
+           y = resid(PhysActive_FEV1)) 
+
+```
 
 ## Assessing the assumptions of the logistic regression model
 The assumptions underlying the logistic regression model are similar to those
