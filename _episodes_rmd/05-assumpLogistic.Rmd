@@ -157,52 +157,6 @@ summ(SmokeNow_Age_SQ)
 ```
 
 
-```{r, eval = FALSE, echo = FALSE}
-SmokeNow_Age <- dat %>%
-  glm(formula = SmokeNow ~ Age + I(Age^2),  family = "binomial")
-
-
-binnedplot(x = predict(SmokeNow_Age),
-           y = resid(SmokeNow_Age)) 
-
-#residuals vs fitted on probability scale
-binnedplot(x = SmokeNow_Age$fitted.values,
-           y = resid(SmokeNow_Age, type = "working"),
-           xlab = "Pr(SmokeNow = Yes)") 
-
-PhysActive_FEV1 <- dat %>%
- drop_na(PhysActive) %>%
- glm(formula = PhysActive ~ FEV1, family = "binomial")
-
-#residuals vs fitted on probability scale
-binnedplot(x = PhysActive_FEV1$fitted.values,
-           y = resid(PhysActive_FEV1, type = "response"),
-           xlab = "Pr(PhysActive = Yes)") 
-
-PhysActive_FEV1_SQ <- dat %>%
- drop_na(PhysActive) %>%
- glm(formula = PhysActive ~ FEV1 + I(FEV1^2), family = "binomial")
-
-#residuals vs fitted on probability scale
-binnedplot(x = PhysActive_FEV1_SQ$fitted.values,
-           y = resid(PhysActive_FEV1_SQ, type = "response"),
-           xlab = "Pr(PhysActive = Yes)") 
-
-
-binnedplot(x = predict(PhysActive_FEV1),
-           y = resid(PhysActive_FEV1, type = "pearson")) 
-
-binnedplot(x = PhysActive_FEV1$model$FEV1,
-           y = resid(PhysActive_FEV1),
-           xlab = "FEV1")
-
-ggplot(tibble(resid = resid(PhysActive_FEV1),
-              fitted = predict(PhysActive_FEV1)),
-              aes(x = fitted, y = resid)) +
-  geom_point()
-
-```
-
 >## Exercise
 > Create a binned residual plot for our `PhysAvtive_FEV1` model. Then answer 
 > the following questions:  

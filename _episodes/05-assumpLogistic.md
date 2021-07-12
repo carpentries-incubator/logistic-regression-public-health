@@ -186,8 +186,6 @@ I(Age^2)            -0.00   0.00    -4.92   0.00
 {: .output}
 
 
-
-
 >## Exercise
 > Create a binned residual plot for our `PhysAvtive_FEV1` model. Then answer 
 > the following questions:  
