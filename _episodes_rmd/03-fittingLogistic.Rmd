@@ -10,15 +10,15 @@ objectives:
 keypoints:
   - "A violin plot can be used to explore the relationship between a binary response variable and a continuous explanatory variable."
   - "Instead of `lm()`, `glm()` with `family = binomial` is used to fit a logistic regression model."
-  - "The defualt `summ()` output shows the model coefficients in terms of the log odds."
+  - "The default `summ()` output shows the model coefficients in terms of the log odds."
   - "Adding `exp = TRUE` to `summ()` allows us to interpret the model in terms of the multiplicative change in the odds of success."
   - "The logistic regression model is visualised in terms of the probability of success."
 questions:
-  - "How can the relationship between a binary response variable and a continuous explanatory variable be visualised in R?"
-  - "How can a logistic regression model be fit in R?"
-  - "How can the output of a logistic regression model be interpreted in terms of the log odds in R?"
-  - "How can the output of a logistic regression model be interpreted in terms of the multiplicative change in the odds of success in R?"
-  - "How can a logistic regression model be visualised in R?"
+  - "How can we visualise the relationship between a binary response variable and a continuous explanatory variable in R?"
+  - "How can we fit a logistic regression model in R?"
+  - "How can we interpret the output of a logistic regression model in terms of the log odds in R?"
+  - "How can we interpret the output of a logistic regression model in terms of the multiplicative change in the odds of success in R?"
+  - "How can we visualise a logistic regression model in R?"
 teaching: 10
 execises: 10
 ---
@@ -59,7 +59,7 @@ The plot suggests that on average, participants of younger age are still smoking
 > 1. NAs are discarded from the `PhysActive` variable.  
 > 2. Physical activity (`PhysActive`) is on the y-axis and FEV1 
 > (`FEV1`) on the x-axis.
-> 3. This data is shown as a violin plot.  
+> 3. These data are shown as a violin plot.  
 > 4. The y-axis is labelled as "Physically active".
 >
 > > ## Solution
