@@ -7,12 +7,23 @@ Please make sure the following packages are loaded before starting this lesson:
 library(NHANES)
 library(RNHANES)
 library(ggplot2)
+library(patchwork)
 library(jtools)
 library(dplyr)
 library(tidyr)
 library(boot)
 ~~~
 {: .language-r}
+
+
+Please also make sure that the following package is *installed*. Do not
+load it, as loading will result in clashes with packages loaded above.
+
+~~~
+install.packages("arm")
+~~~
+{: .language-r}
+
 
 To obtain the data for this lesson, run the following code:
 
