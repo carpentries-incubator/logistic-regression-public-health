@@ -8,10 +8,10 @@ keypoints:
   - "Predictions of the log odds, the odds and the probability of success can be manually calculated using the model's equation."
   - "Predictions of the log odds, the odds and the probability of success alongside 95% CIs can be obtained using the `make_predictions()` function."
 questions:
-  - "How can predictions from a logistic regression model be calculated manually?"
-  - "How can predictions from a logistic regression model be calculated in R?"
+  - "How can we calculate predictions from a logistic regression model manually?"
+  - "How can we calculate predictions from a logistic regression model in R?"
 teaching: 10
-execises: 10
+exercises: 10
 ---
 
 ```{r, include=FALSE}
@@ -96,7 +96,7 @@ Using the `make_predictions()` function brings two advantages. First, when calcu
 
 To use `make_predictions()`, we need to create a `tibble` with the explanatory variable values for which we wish to have mean predictions from the model. We do this using the `tibble()` function. Note that the column name must correspond to the name of the explanatory variable in the model, i.e. `Age`. In the code below, we create a `tibble` with the values 30, 50 and 70. We then provide `make_predictions()` with this `tibble`, alongside the model from which we wish to have predictions.
 
-Recall that we can calculate predictions on the log odds or the probability scale. To obtain predictions on the log odds scale, we include `outcome.scale = "link"` in our `make_predicitons()` command. For example:
+Recall that we can calculate predictions on the log odds or the probability scale. To obtain predictions on the log odds scale, we include `outcome.scale = "link"` in our `make_predictions()` command. For example:
 
 ```{r make_predictions SmokeNow_Age log odds}
 predictionDat <- tibble(Age = c(30, 50, 70)) #data for which we wish to predict

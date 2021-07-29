@@ -15,11 +15,11 @@ keypoints:
   - The odds is multiplied by $e^{\beta_1}$ for a one-unit increase in $x_1$.
 questions:
   - "In what scenario is a logistic regression model useful?"
-  - "How is the logsitic regression model expressed in terms of the log odds?"
-  - "How is the logsitic regression model expressed in terms of the probability of success?"
+  - "How is the logistic regression model expressed in terms of the log odds?"
+  - "How is the logistic regression model expressed in terms of the probability of success?"
   - "What is the effect of the explanatory variable in terms of the odds?"
 teaching: 10
-execises: 10
+exercises: 10
 ---
 
 
@@ -42,24 +42,24 @@ Logistic regression is commonly used, but when is it appropriate to apply this m
 >   
 > A) Does home ownership (whether a participant's home is owned or rented)
 > vary across income bracket in the general US population?  
-> B) Is there an association between BMI and pulse in the general US population?  
+> B) Is there an association between BMI and pulse rate in the general US population?  
 > C) Do participants with diabetes on average have a higher weight than
 participants without diabetes?  
 > 
 > > ## Solution
 > > A) The outcome variable is home ownership and the explanatory variable
 > > is income bracket.
-> > Since home ownership is a binary outcome variable, this question could
-> > be suited for logistic regression.    
-> > B) Since both variables are continuous, this question is not suitable
-> > for logistic regression.  
+> > Since home ownership is a binary outcome variable, logistic regression could
+> > be a suitable way to investigate this question.    
+> > B) Since both variables are continuous, logistic regression is not suitable
+> > for this question.  
 > > C) The outcome variable is weight and the explanatory variable is
 > > diabetes. Since the outcome variable is continuous and 
 > > the explanatory variable is binary, 
 > > this question is not suited for logistic regression.
 > > Note that an alternative question, with diabetes as the outcome 
-> > variable and weight as the explanatory variable, could be suited
-> > for logistic regression. 
+> > variable and weight as the explanatory variable, could be investigated
+> > using logistic regression. 
 > {: .solution}
 {: .challenge}
 

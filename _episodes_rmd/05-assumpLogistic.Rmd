@@ -8,10 +8,10 @@ keypoints:
   - McFadden's $R^2$ measures relative performance, compared to a model that always predicts the mean. Binned residual plots allow us to check whether the residuals have a pattern and whether particular residuals are larger than expected, both indicating poor model fit. 
   - The logistic regression assumptions are similar to the linear regression assumptions. However, linearity and additivity are checked with respect to the logit of the outcome variable. In addition, homoscedasticity and normality of residuals are not assumptions of binary logistic regression. 
 questions:
-  - How are McFadden's $R^2$ and binned residual plots interpreted?
+  - How can we interpret McFadden's $R^2$ and binned residual plots?
   - What are the assumptions of logistic regression?
 teaching: 10
-execises: 10
+exercises: 10
 ---
 
 ```{r, include=FALSE}
@@ -146,7 +146,7 @@ arm::binnedplot(x = residualData$age,
                 main = "")
 ```
 
-Notice that we are still left with some average binned residuals which suggest poor fit. 
+Notice that we are still left with some average binned residuals, lying outside the lines, which suggest poor fit. 
 This may be unsurprising, as smoking habits are likely influenced by a lot more than `Age` alone. 
 
 At this point, we can also take a look at McFadden's $R^2$ in the output from `summ()`. This comes

@@ -5,7 +5,7 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 ---
 Data Carpentry's aim is to teach researchers basic concepts, skills, and tools for working with data so that they can get more done in less time, and with less pain. This lesson was designed for researchers interested in working with public health data in R, but may be of interest to researchers in other fields as well.
 
-This lesson provides an introduction to binary logistic regression. This model has a binary outcome variable, i.e. a variable that can only take on one of two values. The episodes in this lesson cover binary response variables, the uses and equation of logistic regression, fitting and evaluating logistic regression models with one continous explanatory variable, making predictions and assessing model fit and assumptions.   
+This lesson provides an introduction to binary logistic regression. This model has a binary outcome variable, i.e. a variable that can only take one of two values. The episodes in this lesson cover binary response variables, the uses and equation of logistic regression, fitting and evaluating logistic regression models with one continous explanatory variable, making predictions and assessing model fit and assumptions.   
 
 <!-- this is an html comment -->
 
