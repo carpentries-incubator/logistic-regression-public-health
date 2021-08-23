@@ -315,4 +315,82 @@ effect_plot(SmokeNow_Age, pred = Age, plot.points = TRUE,
 > {: .solution}
 {: .challenge}
 
-
+> ## Changing the direction of coding in the outcome variable
+> In this episode, the outcome variable `SmokeNow` was modelled with
+> "Yes" as "success" and "No" as failure. The "success" and "failure"
+> designations are arbitrary and merely convey the baseline and alternative
+> levels for our model. In other words, "No" is taken as the baseline level
+> and "Yes" is taken as the alternative level. As a result, our coefficients 
+> relate to the probability of individuals still smoking. Recall that this
+> direction results from R taking the levels in alphabetical order.
+> 
+> If we wanted to, we could change the direction of coding. As a result, our
+> model coefficients would relate to the probability of no longer smoking. 
+> 
+> We do this using `mutate` and `relevel`. Inside `relevel`, we specify the 
+> new baseline level using `ref = "Yes"`. We then fit the model as before:
+> 
+> 
+> ~~~
+> SmokeNow_Age_Relevel <- dat %>%
+>   mutate(SmokeNow = relevel(SmokeNow, ref = "Yes")) %>%
+>   glm(formula = SmokeNow ~ Age, family = "binomial")
+> ~~~
+> {: .language-r}
+> 
+> Looking at the output from `summ()`, we see that the coefficients have changed:
+> 
+> 
+> ~~~
+> summ(SmokeNow_Age_Relevel, digits = 5)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> MODEL INFO:
+> Observations: 3007 (6993 missing obs. deleted)
+> Dependent Variable: SmokeNow
+> Type: Generalized linear model
+>   Family: binomial 
+>   Link function: logit 
+> 
+> MODEL FIT:
+> χ²(1) = 574.29107, p = 0.00000
+> Pseudo-R² (Cragg-Uhler) = 0.23240
+> Pseudo-R² (McFadden) = 0.13853
+> AIC = 3575.26400, BIC = 3587.28139 
+> 
+> Standard errors: MLE
+> ------------------------------------------------------------
+>                         Est.      S.E.      z val.         p
+> ----------------- ---------- --------- ----------- ---------
+> (Intercept)         -2.60651   0.13242   -19.68364   0.00000
+> Age                  0.05423   0.00249    21.77087   0.00000
+> ------------------------------------------------------------
+> ~~~
+> {: .output}
+> 
+> The model equation therefor becomes:
+> 
+> $$\text{logit}(E(\text{SmokeNow})) = -2.60651 + 0.05423 \times \text{Age}.$$
+> 
+> Expressing the model in terms of the probability of success:
+> 
+> $$\text{Pr}(\text{SmokeNow} = \text{No}) = \text{logit}^{-1}(-2.60651 + 0.05423 \times \text{Age}).$$
+> 
+> And finally creating the effect plot:
+> 
+> 
+> ~~~
+> effect_plot(SmokeNow_Age_Relevel, pred = Age, plot.points = TRUE,
+>             jitter = c(0.1, 0.05), point.alpha = 0.1) +
+>   ylab("Pr(SmokeNow = No)")
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-03-effect plot SmokeNow_Age_Relevel-1.png" title="plot of chunk effect plot SmokeNow_Age_Relevel" alt="plot of chunk effect plot SmokeNow_Age_Relevel" width="612" style="display: block; margin: auto;" />
+> 
+> 
+{: .callout}
