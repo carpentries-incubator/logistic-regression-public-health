@@ -10,10 +10,10 @@ keypoints:
   - McFadden's $R^2$ measures relative performance, compared to a model that always predicts the mean. Binned residual plots allow us to check whether the residuals have a pattern and whether particular residuals are larger than expected, both indicating poor model fit. 
   - The logistic regression assumptions are similar to the linear regression assumptions. However, linearity and additivity are checked with respect to the logit of the outcome variable. In addition, homoscedasticity and normality of residuals are not assumptions of binary logistic regression. 
 questions:
-  - How are McFadden's $R^2$ and binned residual plots interpreted?
+  - How can we interpret McFadden's $R^2$ and binned residual plots?
   - What are the assumptions of logistic regression?
 teaching: 10
-execises: 10
+exercises: 10
 ---
 
 
@@ -146,7 +146,7 @@ arm::binnedplot(x = residualData$age,
 
 <img src="../fig/rmd-05-binned residuals after squaring-1.png" title="plot of chunk binned residuals after squaring" alt="plot of chunk binned residuals after squaring" width="612" style="display: block; margin: auto;" />
 
-Notice that we are still left with some average binned residuals which suggest poor fit. 
+Notice that we are still left with some average binned residuals, lying outside the lines, which suggest poor fit. 
 This may be unsurprising, as smoking habits are likely influenced by a lot more than `Age` alone. 
 
 At this point, we can also take a look at McFadden's $R^2$ in the output from `summ()`. This comes
@@ -187,7 +187,7 @@ I(Age^2)            -0.00   0.00    -4.92   0.00
 
 
 >## Exercise
-> Create a binned residual plot for our `PhysAvtive_FEV1` model. Then answer 
+> Create a binned residual plot for our `PhysActive_FEV1` model. Then answer 
 > the following questions:  
 > A) Where along the predicted probabilities does our model tend to overestimate or underestimate the probability of success compared to the original data?  
 > B) What pattern do the residuals appear to follow?  
@@ -268,5 +268,31 @@ of the simple linear regression model. The key similarities and differences are:
 * While logistic regression has the linearity and additivity assumption, it is slightly different. This assumption states that *the logit of* our outcome variable has a linear, additive relationship with the explanatory variables. Violations of the linearity assumption can sometimes be solved through transformation of explanatory variables. Violations of the additivity assumption can sometimes be solved through the inclusion of interactions.
 * Homoscedasticity and normally distributed residuals are *not* assumptions underlying the logistic regression model.
 
+The linearity assumption can be checked as follows. Let's take our
+`SmokeNow_Age` model as an example. First, we drop NAs using `drop_na()`.
+Then, we group our observations by `Age`. This will allow us to calculate
+the log odds for each value of `Age`. Then, we count the number of observations
+in each level of `SmokeNow` across `Age` using `count()`. This allows us to calculate
+the proportions using `mutate()`. We then filter for "success", which is 
+`SmokeNow == "Yes"` in this case. We calculate the log odds using `summarise()`.
+Finally, we create a scatterplot of log odds versus `Age`. Broadly speaking,
+the relationship looks fairly linear. 
+
+
+~~~
+dat %>%
+  drop_na(SmokeNow) %>%
+  group_by(Age) %>%
+  count(SmokeNow) %>%
+  mutate(prop = n/sum(n)) %>%
+  filter(SmokeNow == "Yes") %>%
+  summarise(log_odds = log(prop/(1 - prop))) %>%
+  ggplot(aes(x = Age, y = log_odds)) +
+  geom_point() +
+  ylab("Log odds of still smoking")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-05-check linearity SmokeNow_Age-1.png" title="plot of chunk check linearity SmokeNow_Age" alt="plot of chunk check linearity SmokeNow_Age" width="612" style="display: block; margin: auto;" />
 
 
