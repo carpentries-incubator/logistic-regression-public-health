@@ -12,15 +12,15 @@ objectives:
 keypoints:
   - "A violin plot can be used to explore the relationship between a binary response variable and a continuous explanatory variable."
   - "Instead of `lm()`, `glm()` with `family = binomial` is used to fit a logistic regression model."
-  - "The defualt `summ()` output shows the model coefficients in terms of the log odds."
+  - "The default `summ()` output shows the model coefficients in terms of the log odds."
   - "Adding `exp = TRUE` to `summ()` allows us to interpret the model in terms of the multiplicative change in the odds of success."
   - "The logistic regression model is visualised in terms of the probability of success."
 questions:
-  - "How can the relationship between a binary response variable and a continuous explanatory variable be visualised in R?"
-  - "How can a logistic regression model be fit in R?"
-  - "How can the output of a logistic regression model be interpreted in terms of the log odds in R?"
-  - "How can the output of a logistic regression model be interpreted in terms of the multiplicative change in the odds of success in R?"
-  - "How can a logistic regression model be visualised in R?"
+  - "How can we visualise the relationship between a binary response variable and a continuous explanatory variable in R?"
+  - "How can we fit a logistic regression model in R?"
+  - "How can we interpret the output of a logistic regression model in terms of the log odds in R?"
+  - "How can we interpret the output of a logistic regression model in terms of the multiplicative change in the odds of success in R?"
+  - "How can we visualise a logistic regression model in R?"
 teaching: 10
 execises: 10
 ---
@@ -32,14 +32,15 @@ In this episode we will learn to fit a logistic regression model when we have on
 ## Exploring the relationship between the binary and continuous variables 
 Before we fit the model, we can explore the relationship between our variables graphically. We are getting a sense of whether, on average, observations split along the binary variable appear to differ in the explanatory variable.
 
-Let us take response variable `SmokeNow` and the continuous explanatory variable `Age` as an example. For participants that have smoked at least 100 cigarettes in their life, `SmokeNow` denotes whether they still smoke. The code below drops NAs in the response variable. The plotting is then initiated using `ggplot()`. Inside `aes()`, we select the response variable with `y = SmokeNow` and the continuous explanatory variable with `x = Age`. Finally, violin plots are called using `geom_violin()`.
+Let us take response variable `SmokeNow` and the continuous explanatory variable `Age` as an example. For participants that have smoked at least 100 cigarettes in their life, `SmokeNow` denotes whether they still smoke. The code below drops NAs in the response variable. The plotting is then initiated using `ggplot()`. Inside `aes()`, we select the response variable with `y = SmokeNow` and the continuous explanatory variable with `x = Age`. Then, the violin plots are called using `geom_violin()`. Finally, we edit the y-axis label using `ylab()`. 
 
 
 ~~~
 dat %>%
   drop_na(SmokeNow) %>%
   ggplot(aes(x = Age, y = SmokeNow)) +
-  geom_violin() 
+  geom_violin() +
+  ylab("Still smoking")
 ~~~
 {: .language-r}
 
@@ -55,7 +56,7 @@ The plot suggests that on average, participants of younger age are still smoking
 > 1. NAs are discarded from the `PhysActive` variable.  
 > 2. Physical activity (`PhysActive`) is on the y-axis and FEV1 
 > (`FEV1`) on the x-axis.
-> 3. This data is shown as a violin plot.  
+> 3. These data are shown as a violin plot.  
 > 4. The y-axis is labelled as "Physically active".
 >
 > > ## Solution

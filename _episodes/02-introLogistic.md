@@ -15,11 +15,11 @@ keypoints:
   - The odds is multiplied by $e^{\beta_1}$ for a one-unit increase in $x_1$.
 questions:
   - "In what scenario is a logistic regression model useful?"
-  - "How is the logsitic regression model expressed in terms of the log odds?"
-  - "How is the logsitic regression model expressed in terms of the probability of success?"
+  - "How is the logistic regression model expressed in terms of the log odds?"
+  - "How is the logistic regression model expressed in terms of the probability of success?"
   - "What is the effect of the explanatory variable in terms of the odds?"
 teaching: 10
-execises: 10
+exercises: 10
 ---
 
 
@@ -42,24 +42,24 @@ Logistic regression is commonly used, but when is it appropriate to apply this m
 >   
 > A) Does home ownership (whether a participant's home is owned or rented)
 > vary across income bracket in the general US population?  
-> B) Is there an association between BMI and pulse in the general US population?  
+> B) Is there an association between BMI and pulse rate in the general US population?  
 > C) Do participants with diabetes on average have a higher weight than
 participants without diabetes?  
 > 
 > > ## Solution
 > > A) The outcome variable is home ownership and the explanatory variable
 > > is income bracket.
-> > Since home ownership is a binary outcome variable, this question could
-> > be suited for logistic regression.    
-> > B) Since both variables are continuous, this question is not suitable
-> > for logistic regression.  
+> > Since home ownership is a binary outcome variable, logistic regression could
+> > be a suitable way to investigate this question.    
+> > B) Since both variables are continuous, logistic regression is not suitable
+> > for this question.  
 > > C) The outcome variable is weight and the explanatory variable is
 > > diabetes. Since the outcome variable is continuous and 
 > > the explanatory variable is binary, 
 > > this question is not suited for logistic regression.
 > > Note that an alternative question, with diabetes as the outcome 
-> > variable and weight as the explanatory variable, could be suited
-> > for logistic regression. 
+> > variable and weight as the explanatory variable, could be investigated
+> > using logistic regression. 
 > {: .solution}
 {: .challenge}
 
@@ -103,7 +103,9 @@ Before fitting the model, we have $y$ and $x_1$ values for each observation in o
 
 > ## Exercise  
 > We are asked to study the association between BMI and diabetes. We are given the following equation of a logistic regression model to use:  
+> 
 > $$\text{logit}(E(y)) = \beta_0 + \beta_1 \times x_1$$.    
+> 
 > Match the following components of this logistic regression model to their descriptions:  
 > 1. $\text{logit}(E(y))$  
 > 2. ${\beta}_0$  
@@ -153,8 +155,8 @@ The advantage of this formulation is that our output is in terms of probabilitie
 > B) The expected probability of being a smoker for a particular
 > value of age.  
 > C) The inverse logit function.  
-> D) The linear predictor for smoking given an age of 0.  
-> E) The expected change in the linear predictor with a one-unit
+> D) The expected log odds of still smoking given an age of 0.  
+> E) The expected change in the log odds with a one-unit
 > difference in age. 
 >  
 > > ## Solution
@@ -234,7 +236,12 @@ If you are interested in the reason why this multiplicative change exists, see t
 > Therefore, if $A>1$ then the odds of success is greater when $x=a+1$. 
 > Alternatively, if $A<1$, then the odds of success is smaller when $x=a+1$.
 > 
-> The ratio of two odds can be expressed in terms of the exponentiated model equations:
+> Taking the exponential of a log returns the logged value, i.e. $e^{\text{log}(a)} = a$.
+> Therefore, we can express the odds in terms of the exponentiated model equation:
+>
+> $$\text{log}\left(\frac{\text{Pr}(y=1)}{\text{Pr}(y=0)}\right) = \beta_0 + \beta_1 \times x_1 \Leftrightarrow  \frac{\text{Pr}(y=1)}{\text{Pr}(y=0)} = e^{\beta_0 + \beta_1 \times x_1}.$$
+> 
+> The ratio of two odds can thus be expressed in terms of the exponentiated model equations:
 > 
 > $$\frac{\frac{\text{Pr}(y=1|x=a+1)}{\text{Pr}(y=0|x=a+1)}}{\frac{\text{Pr}(y=1|x=a)}{\text{Pr}(y=0|x=a)}} = \frac{e^{\beta_0 + \beta_1 \times (a+1)}}{e^{\beta_0 + \beta_1\times a}}.$$
 > 

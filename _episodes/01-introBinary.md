@@ -14,10 +14,10 @@ keypoints:
   - "The odds equal the ratio of the probability of success and one minus the probability of success. The odds quantify how many times more likely success is than failure."
   - "The log odds are calculated by taking the log of the odds. When the log odds are greater than 0, the probability of success is greater than 0.5."
 questions:
-  - "How are probabilities of success and failure calculated?"
-  - "How is the expectation of a binary variable interpreted?"
-  - "How are the odds calculated and interpreted?"
-  - "How are the log odds calculated and interpreted?"
+  - "How can we calculate probabilities of success and failure?"
+  - "How do we interpret the expectation of a binary variable?"
+  - "How can we calculate and interpret the odds?"
+  - "How can we calculate and interpret the log odds?"
 teaching: 10
 execises: 10
 ---
@@ -25,7 +25,7 @@ execises: 10
 
 In this lesson we will work with binary outcome variables. 
 That is, variables which can take one of two possible values.
-These could be $0$ or $1$, "success" or "failure" or "yes" or "no".
+For example, these could be $0$ or $1$, "success" or "failure" or "yes" or "no".
 
 ## Probabilities and expectation
 
@@ -52,7 +52,8 @@ of non-NA observations using `mutate()`.
 
 ~~~
 dat %>%
-  drop_na(SmokeNow) %>%
+  drop_na(SmokeNow) %>% # there are no empty rows in Age
+                        # so we only use drop_na on SmokeNow
   filter(between(Age, 55, 66)) %>%
   count(SmokeNow, name = "n") %>%
   mutate(prop = n/sum(n))
@@ -69,7 +70,7 @@ dat %>%
 {: .output}
 
 We see that the probability of success is estimated as $0.38$ and the probability
-of failure is estimated as $0.62$. In mathematical notation: 
+of failure is estimated as $0.62$. In mathematical notation:  
 $\text{Pr}(\text{SmokeNow} = \text{Yes}) = 0.38$ and $\text{Pr}(\text{SmokeNow} = \text{No}) = 0.62$.
 
 You may have noticed that the probabilities of success and failure add to 1. 
@@ -128,7 +129,7 @@ equal to the probability of success. In our example above, $E(y) = \text{Pr}(\te
 > 
 > $$E(y) = \sum_i\Big(y_i \times \text{Pr}(y = y_i)\Big)$$
 > 
-> In the case of a binary variable, the variable can take on 
+> In the case of a binary variable, the variable can take 
 > one of two values: $0$ and $1$. Therefore, the expectation becomes:
 > 
 > $$E(y) = \sum_i\Big(y_i \times \text{Pr}(y = y_i)\Big) = 0 \times \text{Pr}(y = 0) + 1 \times \text{Pr}(y = 1) = \text{Pr}(y = 1)$$
@@ -172,7 +173,7 @@ Error: <text>:6:13: unexpected string constant
 
 In mathematical notation, the log odds is defined as:
 
-$$\text{log}\left(\frac{E(y)}{1-E(y)}\right)$$
+$$\text{log}\left(\frac{E(y)}{1-E(y)}\right).$$
 
 
 
