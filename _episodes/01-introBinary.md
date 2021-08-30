@@ -52,7 +52,8 @@ of non-NA observations using `mutate()`.
 
 ~~~
 dat %>%
-  drop_na(SmokeNow) %>%
+  drop_na(SmokeNow) %>% # there are no empty rows in Age
+                        # so we only use drop_na on SmokeNow
   filter(between(Age, 55, 66)) %>%
   count(SmokeNow, name = "n") %>%
   mutate(prop = n/sum(n))
@@ -165,7 +166,7 @@ is associated with a probability of success less than 0.5.
 
 In mathematical notation, the log odds is defined as:
 
-$$\text{log}\left(\frac{E(y)}{1-E(y)}\right)$$
+$$\text{log}\left(\frac{E(y)}{1-E(y)}\right).$$
 
 
 

@@ -103,7 +103,9 @@ Before fitting the model, we have $y$ and $x_1$ values for each observation in o
 
 > ## Exercise  
 > We are asked to study the association between BMI and diabetes. We are given the following equation of a logistic regression model to use:  
+> 
 > $$\text{logit}(E(y)) = \beta_0 + \beta_1 \times x_1$$.    
+> 
 > Match the following components of this logistic regression model to their descriptions:  
 > 1. $\text{logit}(E(y))$  
 > 2. ${\beta}_0$  
@@ -153,8 +155,8 @@ The advantage of this formulation is that our output is in terms of probabilitie
 > B) The expected probability of being a smoker for a particular
 > value of age.  
 > C) The inverse logit function.  
-> D) The linear predictor for smoking given an age of 0.  
-> E) The expected change in the linear predictor with a one-unit
+> D) The expected log odds of still smoking given an age of 0.  
+> E) The expected change in the log odds with a one-unit
 > difference in age. 
 >  
 > > ## Solution
@@ -234,7 +236,12 @@ If you are interested in the reason why this multiplicative change exists, see t
 > Therefore, if $A>1$ then the odds of success is greater when $x=a+1$. 
 > Alternatively, if $A<1$, then the odds of success is smaller when $x=a+1$.
 > 
-> The ratio of two odds can be expressed in terms of the exponentiated model equations:
+> Taking the exponential of a log returns the logged value, i.e. $e^{\text{log}(a)} = a$.
+> Therefore, we can express the odds in terms of the exponentiated model equation:
+>
+> $$\text{log}\left(\frac{\text{Pr}(y=1)}{\text{Pr}(y=0)}\right) = \beta_0 + \beta_1 \times x_1 \Leftrightarrow  \frac{\text{Pr}(y=1)}{\text{Pr}(y=0)} = e^{\beta_0 + \beta_1 \times x_1}.$$
+> 
+> The ratio of two odds can thus be expressed in terms of the exponentiated model equations:
 > 
 > $$\frac{\frac{\text{Pr}(y=1|x=a+1)}{\text{Pr}(y=0|x=a+1)}}{\frac{\text{Pr}(y=1|x=a)}{\text{Pr}(y=0|x=a)}} = \frac{e^{\beta_0 + \beta_1 \times (a+1)}}{e^{\beta_0 + \beta_1\times a}}.$$
 > 

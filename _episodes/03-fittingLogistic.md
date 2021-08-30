@@ -32,14 +32,15 @@ In this episode we will learn to fit a logistic regression model when we have on
 ## Exploring the relationship between the binary and continuous variables 
 Before we fit the model, we can explore the relationship between our variables graphically. We are getting a sense of whether, on average, observations split along the binary variable appear to differ in the explanatory variable.
 
-Let us take response variable `SmokeNow` and the continuous explanatory variable `Age` as an example. For participants that have smoked at least 100 cigarettes in their life, `SmokeNow` denotes whether they still smoke. The code below drops NAs in the response variable. The plotting is then initiated using `ggplot()`. Inside `aes()`, we select the response variable with `y = SmokeNow` and the continuous explanatory variable with `x = Age`. Finally, violin plots are called using `geom_violin()`.
+Let us take response variable `SmokeNow` and the continuous explanatory variable `Age` as an example. For participants that have smoked at least 100 cigarettes in their life, `SmokeNow` denotes whether they still smoke. The code below drops NAs in the response variable. The plotting is then initiated using `ggplot()`. Inside `aes()`, we select the response variable with `y = SmokeNow` and the continuous explanatory variable with `x = Age`. Then, the violin plots are called using `geom_violin()`. Finally, we edit the y-axis label using `ylab()`. 
 
 
 ~~~
 dat %>%
   drop_na(SmokeNow) %>%
   ggplot(aes(x = Age, y = SmokeNow)) +
-  geom_violin() 
+  geom_violin() +
+  ylab("Still smoking")
 ~~~
 {: .language-r}
 
