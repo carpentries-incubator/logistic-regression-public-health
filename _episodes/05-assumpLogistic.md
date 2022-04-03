@@ -12,8 +12,8 @@ keypoints:
 questions:
   - How can we interpret McFadden's $R^2$ and binned residual plots?
   - What are the assumptions of logistic regression?
-teaching: 10
-exercises: 10
+teaching: 50
+exercises: 25
 ---
 
 

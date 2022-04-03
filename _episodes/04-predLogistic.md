@@ -12,8 +12,8 @@ keypoints:
 questions:
   - "How can we calculate predictions from a logistic regression model manually?"
   - "How can we calculate predictions from a logistic regression model in R?"
-teaching: 10
-exercises: 10
+teaching: 20
+exercises: 20
 ---
 
 

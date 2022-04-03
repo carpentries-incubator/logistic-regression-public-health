@@ -18,8 +18,8 @@ questions:
   - "How do we interpret the expectation of a binary variable?"
   - "How can we calculate and interpret the odds?"
   - "How can we calculate and interpret the log odds?"
-teaching: 10
-execises: 10
+teaching: 40
+execises: 20
 ---
 
 
