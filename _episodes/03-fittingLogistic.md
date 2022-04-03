@@ -21,8 +21,8 @@ questions:
   - "How can we interpret the output of a logistic regression model in terms of the log odds in R?"
   - "How can we interpret the output of a logistic regression model in terms of the multiplicative change in the odds of success in R?"
   - "How can we visualise a logistic regression model in R?"
-teaching: 10
-execises: 10
+teaching: 25
+execises: 25
 ---
 
 

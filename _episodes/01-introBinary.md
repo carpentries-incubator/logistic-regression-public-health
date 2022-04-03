@@ -18,8 +18,8 @@ questions:
   - "How do we interpret the expectation of a binary variable?"
   - "How can we calculate and interpret the odds?"
   - "How can we calculate and interpret the log odds?"
-teaching: 10
-execises: 10
+teaching: 40
+execises: 20
 ---
 
 
@@ -162,14 +162,7 @@ is associated with
 a probability of success greater than 0.5. Likewise, a log odds smaller than 0 
 is associated with a probability of success less than 0.5. 
 
-
-~~~
-Error: <text>:6:13: unexpected string constant
-5:   geom_line() +
-6:   xlab(TeX(r'($E(y)$)'
-               ^
-~~~
-{: .error}
+<img src="../fig/rmd-01-plot log odds vs expectation-1.png" title="plot of chunk plot log odds vs expectation" alt="plot of chunk plot log odds vs expectation" width="612" style="display: block; margin: auto;" />
 
 In mathematical notation, the log odds is defined as:
 

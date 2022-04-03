@@ -18,8 +18,8 @@ questions:
   - "How is the logistic regression model expressed in terms of the log odds?"
   - "How is the logistic regression model expressed in terms of the probability of success?"
   - "What is the effect of the explanatory variable in terms of the odds?"
-teaching: 10
-exercises: 10
+teaching: 45
+exercises: 45
 ---
 
 
