@@ -19,7 +19,7 @@ questions:
   - "How can we calculate and interpret the odds?"
   - "How can we calculate and interpret the log odds?"
 teaching: 40
-execises: 20
+exercises: 20
 ---
 
 
