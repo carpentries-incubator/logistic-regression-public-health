@@ -44,7 +44,7 @@ dat %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-03-explore SmokeNow_Age-1.png" title="plot of chunk explore SmokeNow_Age" alt="plot of chunk explore SmokeNow_Age" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-explore SmokeNow_Age-1.png" alt="plot of chunk explore SmokeNow_Age" width="612" style="display: block; margin: auto;" />
 
 The plot suggests that on average, participants of younger age are still smoking and participants of older age have given up smoking. After the exercise, we can proceed with fitting the logistic regression model. 
 
@@ -71,7 +71,7 @@ The plot suggests that on average, participants of younger age are still smoking
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-03-explore PhysActive_FEV1-1.png" title="plot of chunk explore PhysActive_FEV1" alt="plot of chunk explore PhysActive_FEV1" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-03-explore PhysActive_FEV1-1.png" alt="plot of chunk explore PhysActive_FEV1" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -296,7 +296,7 @@ effect_plot(SmokeNow_Age, pred = Age, plot.points = TRUE,
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-03-plot SmokeNow_Age-1.png" title="plot of chunk plot SmokeNow_Age" alt="plot of chunk plot SmokeNow_Age" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-plot SmokeNow_Age-1.png" alt="plot of chunk plot SmokeNow_Age" width="612" style="display: block; margin: auto;" />
 
 > ## Exercise  
 > To help others interpret the `PhysActive_FEV1` model, produce a figure. 
@@ -312,7 +312,7 @@ effect_plot(SmokeNow_Age, pred = Age, plot.points = TRUE,
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-03-plot PhysActive_FEV1-1.png" title="plot of chunk plot PhysActive_FEV1" alt="plot of chunk plot PhysActive_FEV1" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-03-plot PhysActive_FEV1-1.png" alt="plot of chunk plot PhysActive_FEV1" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -391,7 +391,7 @@ effect_plot(SmokeNow_Age, pred = Age, plot.points = TRUE,
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-03-effect plot SmokeNow_Age_Relevel-1.png" title="plot of chunk effect plot SmokeNow_Age_Relevel" alt="plot of chunk effect plot SmokeNow_Age_Relevel" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-03-effect plot SmokeNow_Age_Relevel-1.png" alt="plot of chunk effect plot SmokeNow_Age_Relevel" width="612" style="display: block; margin: auto;" />
 > 
 > 
 {: .callout}

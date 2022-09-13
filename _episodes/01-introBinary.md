@@ -162,7 +162,7 @@ is associated with
 a probability of success greater than 0.5. Likewise, a log odds smaller than 0 
 is associated with a probability of success less than 0.5. 
 
-<img src="../fig/rmd-01-plot log odds vs expectation-1.png" title="plot of chunk plot log odds vs expectation" alt="plot of chunk plot log odds vs expectation" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-plot log odds vs expectation-1.png" alt="plot of chunk plot log odds vs expectation" width="612" style="display: block; margin: auto;" />
 
 In mathematical notation, the log odds is defined as:
 

@@ -74,7 +74,7 @@ p1 + p2
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-raw residuals-1.png" title="plot of chunk raw residuals" alt="plot of chunk raw residuals" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-raw residuals-1.png" alt="plot of chunk raw residuals" width="612" style="display: block; margin: auto;" />
 
 Let's plot binned residuals instead. Binned residuals are averages of the residuals
 plotted above, grouped by their associated fitted values or values for `Age`.
@@ -106,7 +106,7 @@ arm::binnedplot(x = residualData$age,
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-binned residuals-1.png" title="plot of chunk binned residuals" alt="plot of chunk binned residuals" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-binned residuals-1.png" alt="plot of chunk binned residuals" width="612" style="display: block; margin: auto;" />
 
 The outer lines on the plot indicate the bounds within which the binned residuals
 would be expected to fall, if the model provided a good fit to the data. There
@@ -144,7 +144,7 @@ arm::binnedplot(x = residualData$age,
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-binned residuals after squaring-1.png" title="plot of chunk binned residuals after squaring" alt="plot of chunk binned residuals after squaring" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-binned residuals after squaring-1.png" alt="plot of chunk binned residuals after squaring" width="612" style="display: block; margin: auto;" />
 
 Notice that we are still left with some average binned residuals, lying outside the lines, which suggest poor fit. 
 This may be unsurprising, as smoking habits are likely influenced by a lot more than `Age` alone. 
@@ -207,7 +207,7 @@ I(Age^2)            -0.00   0.00    -4.92   0.00
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-05-PhysActive FEV1 model-1.png" title="plot of chunk PhysActive FEV1 model" alt="plot of chunk PhysActive FEV1 model" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-05-PhysActive FEV1 model-1.png" alt="plot of chunk PhysActive FEV1 model" width="612" style="display: block; margin: auto;" />
 > > B) There appears to be a parabolic pattern to the residuals.  
 > > C) Adding a squared `FEV1` term resolves most of the parabolic pattern:
 > > 
@@ -223,7 +223,7 @@ I(Age^2)            -0.00   0.00    -4.92   0.00
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-05-PhysActive FEV1 squared model-1.png" title="plot of chunk PhysActive FEV1 squared model" alt="plot of chunk PhysActive FEV1 squared model" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-05-PhysActive FEV1 squared model-1.png" alt="plot of chunk PhysActive FEV1 squared model" width="612" style="display: block; margin: auto;" />
 > > D) Since McFadden's $R^2$ is 0.03, it suggests that FEV1 is not a strong predictor of physical activity. 
 > > 
 > > ~~~
@@ -293,6 +293,6 @@ dat %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-check linearity SmokeNow_Age-1.png" title="plot of chunk check linearity SmokeNow_Age" alt="plot of chunk check linearity SmokeNow_Age" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-check linearity SmokeNow_Age-1.png" alt="plot of chunk check linearity SmokeNow_Age" width="612" style="display: block; margin: auto;" />
 
 
